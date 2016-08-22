@@ -1,26 +1,27 @@
-# Find best profit
+# Find the product of every integer in an array except the integer at that index
+
 ## The challenge
-Suppose we could access yesterday's stock prices as an array, where:
+You have an array of integers, and for each index you want to find the product of every integer except the integer at that index.
 
-The indices are the time in minutes past trade opening time, which was 9:30am local time.
-The values are the price in dollars of Apple stock at that time.
-So if the stock cost $500 at 10:30am, `stockPricesYesterday[60]` = 500.
+Write a function `getProductsOfAllIntsExceptAtIndex()` that takes an array of integers and returns an array of the products.
 
-Write an efficient function that takes `stockPricesYesterday` and returns the best profit I could have made from 1 purchase and 1 sale of 1 Apple stock yesterday.
+For example, given:
+`[1, 7, 3, 4]`
 
-For example:
-```javascript
-var stockPricesYesterday = [10, 7, 5, 8, 11, 9];
+your function would return:
+`[84, 12, 28, 21]`
 
-getMaxProfit(stockPricesYesterday);
-// returns 6 (buying for $5 and selling for $11)
-```
-No "shorting"—you must buy before you sell. You may not buy and sell in the same time step (at least 1 minute must pass).
+by calculating:
+`[7*3*4, 1*3*4, 1*7*4, 1*7*3]`
+
+Do not use division in your solution.
 
 ## The solution
-* Keep track of the lowest price as walking through the array and adjust it as needed.
-* Calculate current profit by subtracting current price and lowest price and update best possible profit if current profit is higher
-* initially lowest price is `stockPricesYesterday[0]` and best profit is `stockPricesYesterday[1] - stockPricesYesterday[0]`  
+When iterating through the array create products of the elements already read (accumulators) and fill up the target array. 
+Make sure the element in the current position does not contribute to the target array.
+While iterating read input elements both from the beginning and the end to avoid having to iterate twice thereby decreasing the computational cost of the solution.
+When filling up the output array check if at the current position there is already a value and if so do not 
+overwrite it, instead multiply it with the accumulator. 
 
 ### Cost
 O(n)

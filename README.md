@@ -1,1 +1,1 @@
-# sandbox
+for playing with new technologies, doing programming exercises, etc.
