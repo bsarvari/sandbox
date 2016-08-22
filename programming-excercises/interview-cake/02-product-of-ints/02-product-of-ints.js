@@ -1,3 +1,4 @@
+'use strict';
 /*
  Each column of the matrices below contains the indices of the input array elements whose products will be stored
  in the output array.
