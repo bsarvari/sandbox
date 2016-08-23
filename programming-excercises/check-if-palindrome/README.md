@@ -1,12 +1,12 @@
 # Check if a string is a palindrome
 
 ## The challenge
-Make a jS function to check if a string is a palindrome. Solution must contain at most 80 characters. 
+Make a js function to check if a string is a palindrome. Solution must contain at most 80 characters. 
 
 ## Solution
 Reverse the string and compare it with the original.
 
-The below solution is 76 chars and comes at a high price: lack of readability:
+The below solution is 76 chars and comes at a high price: lack of readability.
 ```javascript
 function x(s){var r='',i=s.length;while(i){r+=s.charAt(i-1);i--}return r==s}
 ```
