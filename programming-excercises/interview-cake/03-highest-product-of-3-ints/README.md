@@ -13,4 +13,7 @@ This solution has a high price.
 It will result at least three and at most six numbers. 
 * Make all the combinations of three integers for the above list of possible factors and return the largest one.
 
+### The best solution
+Sort the input array and return the product of the first three integers or the product of the first integer and the last two, whichever is bigger. 
+
 *Cost*: linear: `O(n)`

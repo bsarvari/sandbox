@@ -1,5 +1,6 @@
 var assert = require('assert');
-var getHighestProductOfThreeInts = require('./03-highest-product-of-3-ints');
+// var getHighestProductOfThreeInts = require('./03-highest-product-of-3-ints');
+var getHighestProductOfThreeInts = require('./03-highest-product-of-3-ints-simple');
 
 describe('getHighestProductOfThreeInts', function() {
   it('should return 6 for [1, 2, 3]', function() {
