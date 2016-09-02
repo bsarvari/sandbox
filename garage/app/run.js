@@ -15,12 +15,11 @@ const del = require('del');
 const ejs = require('ejs');
 const webpack = require('webpack');
 
-// TODO: Update configuration settings
 const config = {
-  title: 'React Static Boilerplate',        // Your website title
-  url: 'https://rsb.kriasoft.com',          // Your website URL
-  project: 'react-static-boilerplate',      // Firebase project. See README.md -> How to Deploy
-  trackingID: 'UA-XXXXX-Y',                 // Google Analytics Site's ID
+  title: 'Garage',                                                  // Your website title
+  url: 'https://github.com/bsarvari/sandbox/tree/master/garage',    // Your website URL
+  project: 'garage',                                                // Firebase project. See README.md -> How to Deploy
+  trackingID: 'UA-XXXXX-Y'                                          // Google Analytics Site's ID, TODO update this
 };
 
 const tasks = new Map(); // The collection of automation tasks ('clean', 'build', 'publish', etc.)

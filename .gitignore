@@ -1,4 +1,15 @@
 # Created by .ignore support plugin (hsz.mobi)
 programming-excercises/temprature_math.js
-sandbox.iml
+*.iml
 notes
+build
+node_modules
+ncp-debug.log
+npm-debug.log
+
+# Compiled output
+garage/app/public/dist
+garage/app/public/index.html
+garage/app/public/sitemap.xml
+garage/app/.travis.yml
+garage/app/docs
