@@ -59,6 +59,123 @@ class Garage {
     return this._moveHorizontally(carSpec, cells, 'right');
   }
 
+  focusUp(){
+    var focusedCar = this.getFocusedCar();
+    if(focusedCar && focusedCar.posX >0 ){
+
+      var bestMatch;
+      this.cars.forEach((car) => {
+        if(car != focusedCar){
+          if(car.posX < focusedCar.posX){ // car must be above focused car
+            if(!bestMatch){
+              bestMatch = car;
+            } else {
+              if(car.posX > bestMatch.posX){
+                bestMatch = car;
+
+              } else if(car.posX == bestMatch.posX){
+                if(Math.abs(car.posY - focusedCar.posY) < Math.abs(bestMatch.posY - focusedCar.posY)){
+                  bestMatch = car;
+                }
+              }
+            }
+          }
+        }
+      });
+      if(bestMatch){
+        this.focus(bestMatch);
+      }
+      return this.getFocusedCar();
+    }
+  }
+
+  focusDown(){
+    var focusedCar = this.getFocusedCar();
+    if(focusedCar && focusedCar.posX < 5 ){
+      var bestMatch;
+      this.cars.forEach((car) => {
+        if(car != focusedCar){
+          if(car.posX > focusedCar.posX){ // car must be under focused car
+            if(!bestMatch){ // first potential best match
+              bestMatch = car;
+            } else {
+              if(car.posX < bestMatch.posX){ // current car's row is closer to focused car's row
+                bestMatch = car;
+
+              } else if(car.posX == bestMatch.posX){
+                if(Math.abs(car.posY - focusedCar.posY) < Math.abs(bestMatch.posY - focusedCar.posY)){
+                  bestMatch = car;
+                }
+              }
+            }
+          }
+        }
+      });
+      if(bestMatch){
+        this.focus(bestMatch);
+      }
+      return this.getFocusedCar();
+    }
+  }
+
+  focusLeft(){
+    var focusedCar = this.getFocusedCar();
+    if(focusedCar && focusedCar.posY > 0 ){
+      var bestMatch;
+      this.cars.forEach((car) => {
+        if(car != focusedCar){
+          if(car.posY < focusedCar.posY){ // car must be on the left of focused car
+            if(!bestMatch){ // first potential best match
+              bestMatch = car;
+            } else {
+              if(car.posY > bestMatch.posY){ // current car's column is closer to focused car's column
+                bestMatch = car;
+
+              } else if(car.posY == bestMatch.posY){
+                if(Math.abs(car.posX - focusedCar.posX) < Math.abs(bestMatch.posX - focusedCar.posX)){
+                  bestMatch = car;
+                }
+              }
+            }
+          }
+        }
+      });
+      if(bestMatch){
+        this.focus(bestMatch);
+      }
+      return this.getFocusedCar();
+    }
+  }
+
+  focusRight(){
+    var focusedCar = this.getFocusedCar();
+    if(focusedCar && focusedCar.posY < 5 ){
+      var bestMatch;
+      this.cars.forEach((car) => {
+        if(car != focusedCar){
+          if(car.posY > focusedCar.posY){ // car must be on the right of focused car
+            if(!bestMatch){ // first potential best match
+              bestMatch = car;
+            } else {
+              if(car.posY < bestMatch.posY){ // current car's column is closer to focused car's column
+                bestMatch = car;
+
+              } else if(car.posY == bestMatch.posY){
+                if(Math.abs(car.posX - focusedCar.posX) < Math.abs(bestMatch.posX - focusedCar.posX)){
+                  bestMatch = car;
+                }
+              }
+            }
+          }
+        }
+      });
+      if(bestMatch){
+        this.focus(bestMatch);
+      }
+      return this.getFocusedCar();
+    }
+  }
+
   /**
    * 
    * @param carSpec
@@ -68,7 +185,10 @@ class Garage {
    * @private
    */
   _moveVertically(carSpec, cells, direction){
+    carSpec = carSpec ? carSpec : this.getFocusedCar();
     carSpec = Number.isInteger(carSpec) ? new Car(carSpec) : carSpec;
+    cells = cells ? cells : 1;
+
     var car = this.getCar(carSpec);
     if(!car){ // the car must be in the garage
       throw new NoSuchCarError(carSpec);
@@ -91,7 +211,10 @@ class Garage {
   }
 
   _moveHorizontally(carSpec, cells, direction){
+    carSpec = carSpec ? carSpec : this.getFocusedCar();
     carSpec = Number.isInteger(carSpec) ? new Car(carSpec) : carSpec;
+    cells = cells ? cells : 1;
+
     var car = this.getCar(carSpec);
     if(!car){ // the car must be in the garage
       throw new NoSuchCarError(carSpec);

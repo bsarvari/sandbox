@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Garage as GarageModel} from '../../model/garage';
 import {Car as CarModel} from '../../model/garage';
 
@@ -17,6 +18,13 @@ class Garage extends React.Component {
         open: false
       };
     }
+
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+  }
+
+  componentDidMount(){
+    // Need to focus the garage root node in order for keyboard navigation too work
+    ReactDOM.findDOMNode(this).focus();
   }
 
   getModel() {
@@ -40,16 +48,63 @@ class Garage extends React.Component {
     return model;
   }
 
+  handleKeyDown(e){
+    function prevent(e){
+      e.stopPropagation();
+      e.preventDefault();
+    }
+
+    var model = this.state.model;
+    try{
+      switch (e.key){
+        case 'ArrowDown':
+          prevent(e);
+          if(e.shiftKey){
+            model.down();
+          } else {
+            model.focusDown();
+          }
+          break;
+        case 'ArrowUp':
+          prevent(e);
+          if(e.shiftKey){
+            model.up();
+          } else {
+            model.focusUp();
+          }
+          break;
+        case 'ArrowLeft':
+          prevent(e);
+          if(e.shiftKey){
+            model.left();
+          } else {
+            model.focusLeft();
+          }
+          break;
+        case 'ArrowRight':
+          prevent(e);
+          if(e.shiftKey){
+            model.right();
+          } else {
+            model.focusRight();
+          }
+      }
+    } catch(ignored){
+      // The model prevents from collision with the wall and other cars. This is OK.
+    }
+
+  }
+
   render(){
     if(this.state.open){
       var cells = this._renderCells();
       var cars = this.state.model.cars.map((car)=>{
         return (
-          <Car model={car} key={car.id}/>
+          <Car model={car} key={car.id} garageModel={this.state.model}/>
         );
       });
       return (
-        <div className="g-root">
+        <div className="g-root" tabIndex="0" onKeyDown={this.handleKeyDown}>
           {cells}
           {cars}
         </div>
@@ -77,19 +132,40 @@ class Garage extends React.Component {
 }
 
 class Car extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      hovered: false
+    };
+  }
+
+  handleMouseMove(hovered) {
+    this.setState({hovered: hovered});
+  }
+
   render(){
-    let model = this.props.model;
+    let model = this.props.model,
+      x = model.posX,
+      y = model.posY,
+      hovered = this.state.hovered;
     const { myCar, orientation, size, id, focused} = model;
-    let x = model.posX;
-    let y = model.posY;
+    var garageModel = this.props.garageModel;
     if(orientation == 'horizontal'){
       y = y - size + 1;
     }
 
-    let className = (myCar ? 'my ' : '') + (focused ? 'focused ' : '') +`${orientation} car x${x} y${y} c${size}`;
+    let className = (myCar ? 'my ' : '') +
+      (focused ? 'focused ' : '') +
+      `${orientation} car x${x} y${y} c${size}` +
+      (hovered ? ' hovered' : '');
 
+    var handleMouseMove = this.handleMouseMove.bind(this);
     return (
-      <div className={className}>
+      <div className={className}
+           onClick={() => {garageModel.focus(id);}}
+           onMouseEnter={() => handleMouseMove(true)}
+           onMouseLeave={() => handleMouseMove(false)}
+      >
         <span className="carId">{id}</span>
       </div>
     );
