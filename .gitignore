@@ -1,6 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 programming-excercises/temprature_math.js
 *.iml
+*.bak
+*.bak.*
 notes
 build
 node_modules

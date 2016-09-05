@@ -1,0 +1,129 @@
+.g-root {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  background-color: #00b0e8;
+  margin: 5px;
+  border-radius: 11px;
+}
+
+.car {
+  margin: 6px;
+  /*background-color: #FF4081;*/
+  /*background-color: #616161;*/
+  background-color: #3F51B5;
+  position: absolute;
+  border-radius: 16px;
+  color: white;
+}
+
+.car.focused {
+  -webkit-box-shadow: 0px 0px 22px 8px rgba(50, 50, 50, 0.81);
+  -moz-box-shadow:    0px 0px 22px 8px rgba(50, 50, 50, 0.81);
+  box-shadow:         0px 0px 22px 8px rgba(50, 50, 50, 0.81);
+}
+
+.my.car {
+  background-color: #ffe971;
+  color: #616161;
+}
+
+.car.vertical {
+  width: 90px;
+}
+
+.carId{
+  position: absolute;
+  font-size: 2em;
+}
+
+.car.vertical .carId{
+  left: 0;
+  right: 0;
+  text-align: center;
+  top: 36px;
+}
+
+.car.horizontal .carId{
+  top: 0;
+  bottom: 0;
+  /* text-align: center; */
+  right: 36px;
+  position: absolute;
+  line-height: 83px;
+}
+
+.car.vertical.c2 { /*Takes 2 cells*/
+  height: 190px;
+}
+.car.vertical.c3 { /*Takes 3 cells*/
+  height: 290px;
+}
+
+.car.horizontal {
+  height: 90px;
+}
+.car.horizontal.c2 {
+  width: 190px;
+}
+.car.horizontal.c3 {
+  width: 290px;
+}
+
+.cell {
+  height: 100px;
+  width: 100px;
+  border: 1px solid white;
+  position: absolute;
+}
+.exit.cell {
+  background-color: #00D008;
+}
+
+.exitLabel {
+  text-align: center;
+  top: -19px;
+  position: absolute;
+  font-weight: bold;
+  left: 0;
+  right: 0;
+  color: black;
+}
+
+.x0 {
+  top: 0;
+}
+.x1 {
+  top: 100px;
+}
+.x2 {
+  top: 200px;
+}
+.x3 {
+  top: 300px;
+}
+.x4 {
+  top: 400px;
+}
+.x5 {
+  top: 500px;
+}
+
+.y0 {
+  left: 0;
+}
+.y1 {
+  left: 100px;
+}
+.y2 {
+  left: 200px;
+}
+.y3 {
+  left: 300px;
+}
+.y4 {
+  left: 400px;
+}
+.y5 {
+  left: 500px;
+}

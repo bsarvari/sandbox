@@ -4,10 +4,21 @@
  */
 
 class Garage {
-  constructor() {
+  /**
+   * @param cars
+   * @param onStateChange a callback method for state change events.
+   */
+  constructor(cars, onStateChange) {
     this.cars = [];
+    this.notifyStateChangeListener = ()=>{};
+    if(cars) {
+      cars.forEach((car) => this.park(car));
+    }
+    if(onStateChange){
+      this.notifyStateChangeListener = onStateChange;
+    }
   }
-
+  
   /**
    * Move a vertical car up <code>cells</code> number of cells
    * @param {Car | Number} carSpec either a Car or a car id
@@ -75,6 +86,7 @@ class Garage {
       car.posX=x;
       throw e;
     }
+    this.notifyStateChangeListener(this);
     return car;
   }
 
@@ -97,6 +109,7 @@ class Garage {
       car.posY=y;
       throw e;
     }
+    this.notifyStateChangeListener(this);
     return car;
   }
 
@@ -108,8 +121,31 @@ class Garage {
       throw new DuplicateParkingError(newCar);
     } else {
       this.cars.push(newCar);
+      if(newCar.focused){
+        this.focus(newCar);
+      }
       return newCar;
     }
+  }
+
+  focus(carSpec){
+    var car = this.getCar(carSpec);
+    if(!car){ // the car must be in the garage
+      throw new NoSuchCarError(carSpec);
+    }
+
+    var focusedCar = this.getFocusedCar();
+    if(focusedCar){
+      focusedCar.focused = false;
+    }
+    car.focused = true;
+    this.notifyStateChangeListener(this);
+  }
+  
+  getFocusedCar(){
+    return this.cars.find((carInGarage) => {
+      return carInGarage.focused;
+    });
   }
 
   /**
@@ -212,12 +248,14 @@ class Garage {
  * the topmost cell for vertical cars.
  */
 class Car {
-  constructor(id, size, orientation, posX, posY){
+  constructor(id, size, orientation, posX, posY, focused, myCar){ // TODO pass in a conf object
     this.id=id;
     this.size=size;
     this.orientation=orientation;
     this.posX=posX;
     this.posY=posY;
+    this.focused = focused;
+    this.myCar = myCar;
   }
 
   print(){
