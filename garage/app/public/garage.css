@@ -9,12 +9,12 @@
 }
 
 .car {
-  margin: 6px;
+  margin: 8px;
   /*background-color: #FF4081;*/
   /*background-color: #616161;*/
   background-color: #3F51B5;
   position: absolute;
-  border-radius: 16px;
+  border-radius: 20px;
   color: white;
   cursor: pointer;
 }
@@ -39,7 +39,7 @@
 }
 
 .car.vertical {
-  width: 90px;
+  width: 86px;
 }
 
 .carId{
@@ -64,20 +64,21 @@
 }
 
 .car.vertical.c2 { /*Takes 2 cells*/
-  height: 190px;
+  height: 186px;
 }
 .car.vertical.c3 { /*Takes 3 cells*/
-  height: 290px;
+  height: 286px;
 }
 
 .car.horizontal {
-  height: 90px;
+  height: 84px;
+  margin-left: 10px;
 }
 .car.horizontal.c2 {
-  width: 190px;
+  width: 182px;
 }
 .car.horizontal.c3 {
-  width: 290px;
+  width: 282px;
 }
 
 .cell {
