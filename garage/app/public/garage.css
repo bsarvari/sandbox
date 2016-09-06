@@ -1,3 +1,12 @@
+body { /* overriding MDL styles that result in unwanted scrollbars */
+  padding: 0 2em;
+  width: auto;
+  min-height: auto;
+}
+
+.garage-wrap {
+  margin-top: 2em;
+}
 .g-root {
   position: relative;
   width: 600px;
@@ -57,7 +66,6 @@
 .car.horizontal .carId{
   top: 0;
   bottom: 0;
-  /* text-align: center; */
   right: 36px;
   position: absolute;
   line-height: 83px;

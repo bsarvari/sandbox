@@ -91,11 +91,16 @@ class Garage extends React.Component {
       }
     } catch(ignored){
       // The model prevents from collision with the wall and other cars. This is OK.
+      console.log('An error occurred while trying to move car focus.', ignored);
     }
 
   }
 
   render(){
+    let gameOverMsg;
+    if(this.state.gameOver){
+      gameOverMsg = <h3>Good job, my friend. You managed to exit the garage. Refresh your browser to start it again.</h3>;
+    }
     if(this.state.open){
       var cells = this._renderCells();
       var cars = this.state.model.cars.map((car)=>{
@@ -104,9 +109,12 @@ class Garage extends React.Component {
         );
       });
       return (
-        <div className="g-root" tabIndex="0" onKeyDown={this.handleKeyDown}>
-          {cells}
-          {cars}
+        <div className="garage-wrap">
+          {gameOverMsg}
+          <div className="g-root" tabIndex="0" onKeyDown={this.handleKeyDown}>
+            {cells}
+            {cars}
+          </div>
         </div>
       );
     } else {

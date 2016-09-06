@@ -290,7 +290,7 @@ describe('Driving right suite', () => {
 });
 
 describe('Focusing cars suite', () => {
-  it('should verify focusing related features', () => {
+  it('should verify basic focusing related features', () => {
     let g = new Garage();
     expect(g.getFocusedCar()).to.be.equal(undefined);
 
@@ -304,6 +304,16 @@ describe('Focusing cars suite', () => {
     let car2 = new Car(2, 2, 'horizontal', 3, 3, true);
     g.park(car2);
     expect(g.getFocusedCar()).to.deep.equal(car2);
+  });
 
+  it('should move focus up', () => {
+    let g = new Garage();
+    expect(g.getFocusedCar()).to.be.equal(undefined);
+
+    let car = new Car(1, 2, 'vertical', 3, 2, true);
+    g.park(car);
+    expect(g.getFocusedCar()).to.be.equal(car);
+    g.park(new Car(2, 3, 'horizontal', 2, 2));
+    expect(g.focusUp().id).to.be.equal(2);
   });
 });

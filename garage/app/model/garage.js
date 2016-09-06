@@ -2,13 +2,14 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
-
+import FocusMoveManager from './FocusMoveManager';
 class Garage {
   /**
    * @param cars
    * @param onStateChange a callback method for state change events.
    */
   constructor(cars, onStateChange) {
+    this._focusMove = new FocusMoveManager(this);
     this.cars = [];
     this.notifyStateChangeListener = ()=>{};
     if(cars) {
@@ -60,120 +61,19 @@ class Garage {
   }
 
   focusUp(){
-    var focusedCar = this.getFocusedCar();
-    if(focusedCar && focusedCar.posX >0 ){
-
-      var bestMatch;
-      this.cars.forEach((car) => {
-        if(car != focusedCar){
-          if(car.posX < focusedCar.posX){ // car must be above focused car
-            if(!bestMatch){
-              bestMatch = car;
-            } else {
-              if(car.posX > bestMatch.posX){
-                bestMatch = car;
-
-              } else if(car.posX == bestMatch.posX){
-                if(Math.abs(car.posY - focusedCar.posY) < Math.abs(bestMatch.posY - focusedCar.posY)){
-                  bestMatch = car;
-                }
-              }
-            }
-          }
-        }
-      });
-      if(bestMatch){
-        this.focus(bestMatch);
-      }
-      return this.getFocusedCar();
-    }
+    return this._focusMove.up();
   }
 
   focusDown(){
-    var focusedCar = this.getFocusedCar();
-    if(focusedCar && focusedCar.posX < 5 ){
-      var bestMatch;
-      this.cars.forEach((car) => {
-        if(car != focusedCar){
-          if(car.posX > focusedCar.posX){ // car must be under focused car
-            if(!bestMatch){ // first potential best match
-              bestMatch = car;
-            } else {
-              if(car.posX < bestMatch.posX){ // current car's row is closer to focused car's row
-                bestMatch = car;
-
-              } else if(car.posX == bestMatch.posX){
-                if(Math.abs(car.posY - focusedCar.posY) < Math.abs(bestMatch.posY - focusedCar.posY)){
-                  bestMatch = car;
-                }
-              }
-            }
-          }
-        }
-      });
-      if(bestMatch){
-        this.focus(bestMatch);
-      }
-      return this.getFocusedCar();
-    }
+    return this._focusMove.down();
   }
 
   focusLeft(){
-    var focusedCar = this.getFocusedCar();
-    if(focusedCar && focusedCar.posY > 0 ){
-      var bestMatch;
-      this.cars.forEach((car) => {
-        if(car != focusedCar){
-          if(car.posY < focusedCar.posY){ // car must be on the left of focused car
-            if(!bestMatch){ // first potential best match
-              bestMatch = car;
-            } else {
-              if(car.posY > bestMatch.posY){ // current car's column is closer to focused car's column
-                bestMatch = car;
-
-              } else if(car.posY == bestMatch.posY){
-                if(Math.abs(car.posX - focusedCar.posX) < Math.abs(bestMatch.posX - focusedCar.posX)){
-                  bestMatch = car;
-                }
-              }
-            }
-          }
-        }
-      });
-      if(bestMatch){
-        this.focus(bestMatch);
-      }
-      return this.getFocusedCar();
-    }
+    return this._focusMove.left();
   }
 
   focusRight(){
-    var focusedCar = this.getFocusedCar();
-    if(focusedCar && focusedCar.posY < 5 ){
-      var bestMatch;
-      this.cars.forEach((car) => {
-        if(car != focusedCar){
-          if(car.posY > focusedCar.posY){ // car must be on the right of focused car
-            if(!bestMatch){ // first potential best match
-              bestMatch = car;
-            } else {
-              if(car.posY < bestMatch.posY){ // current car's column is closer to focused car's column
-                bestMatch = car;
-
-              } else if(car.posY == bestMatch.posY){
-                if(Math.abs(car.posX - focusedCar.posX) < Math.abs(bestMatch.posX - focusedCar.posX)){
-                  bestMatch = car;
-                }
-              }
-            }
-          }
-        }
-      });
-      if(bestMatch){
-        this.focus(bestMatch);
-      }
-      return this.getFocusedCar();
-    }
+    return this._focusMove.right();
   }
 
   /**
@@ -206,6 +106,7 @@ class Garage {
       car.posX=x;
       throw e;
     }
+    this.checkGameOver();
     this.notifyStateChangeListener(this);
     return car;
   }
@@ -232,8 +133,16 @@ class Garage {
       car.posY=y;
       throw e;
     }
+    this.checkGameOver();
     this.notifyStateChangeListener(this);
     return car;
+  }
+  
+  checkGameOver(){
+    var myCar = this.myCar;
+    if(myCar && myCar.posX == 0 && myCar.posY == 2){
+      this.gameOver = true;
+    }
   }
 
   park(newCar){
@@ -247,6 +156,10 @@ class Garage {
       if(newCar.focused){
         this.focus(newCar);
       }
+      if(newCar.myCar) {
+        this.myCar = newCar;
+      }
+
       return newCar;
     }
   }
@@ -360,7 +273,7 @@ class Garage {
     
     return matrix;
   }
-  
+
   print(){
     console.log(this.asMatrix());
   }
@@ -394,18 +307,6 @@ class Car {
     return !!this.getCells().find((cell) => {
       return cell.x === posX && cell.y === posY;
     });
-
-/* Another way to implement this. Leaving it here for now.
-    if(this.orientation == 'horizontal' && posX == this.posX){
-      var leftMostCell = this.posY-this.size+1;
-      return posY >= leftMostCell && posY <= this.posY;
-
-    } else if(this.orientation == 'vertical' && posY == this.posY) {
-      var bottomMostCell = this.posX+this.size-1;
-      return posX >= this.posX && posX <= bottomMostCell;
-    }
-    return false;
-*/
   }
 
   /**
@@ -447,6 +348,36 @@ class Car {
     }
 
     return cells;
+  }
+
+  /**
+   * @return {Number} the minimum number of cells needed to connect this car to the car passed in. 
+   * Cells are connected via edges and not corners.
+   * @param car the other car to measure the distance from
+   */
+  getDistance(car){
+    var distance = Infinity;
+    if(car){
+      this.getCells().forEach(cell1 => {
+        car.getCells().forEach(cell2 => {
+          let d = Math.abs(cell1.x - cell2.x) +  Math.abs(cell1.y - cell2.y) - 1;
+          distance = d < distance ? d : distance;
+        });
+      });
+    }
+    return distance;
+  }
+  
+  getCols(){
+    var cols = new Set();
+    this.getCells().forEach(cell => cols.add(cell.y));
+    return cols;
+  }
+  
+  getRows(){
+    var rows = new Set();
+    this.getCells().forEach(cell => rows.add(cell.x));
+    return rows;
   }
 }
 

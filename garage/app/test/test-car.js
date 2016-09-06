@@ -62,4 +62,22 @@ describe('Car test suite', () => {
     cells = [{x:5, y:2}, {x:5, y:1}, {x:5, y:0}];
     expect(car.getCells()).to.deep.equal(cells);
   });
+
+  it('should measure distance', ()=> {
+    let car1 = new Car(1, 3, 'horizontal', 0, 2);
+    let car2 = new Car(2, 2, 'vertical', 0, 4);
+
+    expect(car1.getDistance(car2)).to.be.equal(1);
+    expect(car2.getDistance(car1)).to.be.equal(1);
+    expect(car2.getDistance()).to.be.equal(Infinity);
+
+    car1 = new Car(1, 3, 'horizontal', 1, 2);
+    expect(car2.getDistance(car1)).to.be.equal(1);
+
+    car1 = new Car(1, 3, 'horizontal', 2, 2);
+    expect(car2.getDistance(car1)).to.be.equal(2);
+
+    car1 = new Car(1, 3, 'vertical', 3, 5);
+    expect(car2.getDistance(car1)).to.be.equal(2);
+  });
 });

@@ -22,8 +22,12 @@ class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <h1>Garage</h1>
-        <p>Unblock the yellow car and move it to the exit.</p>
+        <h2>Garage</h2>
+        <p><strong>Goal</strong>: Unblock the yellow car and move it to the exit.</p>
+        <ul>
+          <li><strong>Select car</strong>: mouse click, arrow keys</li>
+          <li><strong>Move selected car</strong>: Shift + arrow keys</li>
+        </ul>
         <Garage />
       </div>
     );
