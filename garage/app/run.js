@@ -18,7 +18,7 @@ const webpack = require('webpack');
 const config = {
   title: 'Garage',                                                  // Your website title
   url: 'https://github.com/bsarvari/sandbox/tree/master/garage',    // Your website URL
-  project: 'garage',                                                // Firebase project. See README.md -> How to Deploy
+  project: 'garage-6e3d9',                                          // Firebase project. See README.md -> How to Deploy
   trackingID: 'UA-XXXXX-Y'                                          // Google Analytics Site's ID, TODO update this
 };
 
