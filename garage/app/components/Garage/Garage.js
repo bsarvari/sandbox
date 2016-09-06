@@ -109,9 +109,9 @@ class Garage extends React.Component {
         );
       });
       return (
-        <div className="garage-wrap">
+        <div className="garage-wrap" tabIndex="0" onKeyDown={this.handleKeyDown}>
           {gameOverMsg}
-          <div className="g-root" tabIndex="0" onKeyDown={this.handleKeyDown}>
+          <div className="g-root">
             {cells}
             {cars}
           </div>

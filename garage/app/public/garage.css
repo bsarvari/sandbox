@@ -6,6 +6,7 @@ body { /* overriding MDL styles that result in unwanted scrollbars */
 
 .garage-wrap {
   margin-top: 2em;
+  outline-style: none; /* the garage root div is focusable such that it can receive key events. We don't want the default focus outline*/
 }
 .g-root {
   position: relative;
@@ -14,7 +15,6 @@ body { /* overriding MDL styles that result in unwanted scrollbars */
   background-color: #00b0e8;
   margin: 5px;
   border-radius: 11px;
-  outline-style: none; /* the garage root div is focusable such that it can receive key events. We don't want the default focus outline*/
 }
 
 .car {
