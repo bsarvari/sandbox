@@ -13,19 +13,19 @@ import 'whatwg-fetch';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import FastClick from 'fastclick';
-import { Provider } from 'react-redux';
+// import FastClick from 'fastclick';
+// import { Provider } from 'react-redux';
 
-import store from './core/store';
-import router from './core/router';
-import history from './core/history';
-import HomePage from './pages/home/index'
+// import store from './core/store';
+// import router from './core/router';
+// import history from './core/history';
+import GarageApp from './pages/home/index'
 
-let routes = require('./routes.json'); // Loaded with utils/routes-loader.js
+// let routes = require('./routes.json'); // Loaded with utils/routes-loader.js
 const container = document.getElementById('container');
 
 // ReactDOM.render(<Provider store={store}>{component}</Provider>, container);
-ReactDOM.render(<HomePage/>, container);
+ReactDOM.render(<GarageApp/>, container);
 
 
 /*

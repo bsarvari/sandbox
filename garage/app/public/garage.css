@@ -1,20 +1,43 @@
-body { /* overriding MDL styles that result in unwanted scrollbars */
-  padding: 0 2em;
-  width: auto;
-  min-height: auto;
+/* TODO move every component specific style to its own CSS file */
+body { padding-top: 70px; }
+
+/* Sticky footer styles */
+html {
+  position: relative;
+  min-height: 100%;
+
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 70px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.interactive.garage-wrap {
+  margin-top: 2em; /* Space needed for exit label */
 }
 
 .garage-wrap {
-  margin-top: 2em;
   outline-style: none; /* the garage root div is focusable such that it can receive key events. We don't want the default focus outline*/
 }
+
 .g-root {
   position: relative;
   width: 600px;
   height: 600px;
   background-color: #00b0e8;
-  margin: 5px;
   border-radius: 11px;
+}
+
+.interactive .car {
+  cursor: pointer;
 }
 
 .car {
@@ -25,7 +48,6 @@ body { /* overriding MDL styles that result in unwanted scrollbars */
   position: absolute;
   border-radius: 20px;
   color: white;
-  cursor: pointer;
 }
 
 .car.hovered {
@@ -145,4 +167,337 @@ body { /* overriding MDL styles that result in unwanted scrollbars */
 }
 .y5 {
   left: 500px;
+}
+
+.g-overlay {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.12);
+  z-index: 100;
+  cursor: pointer;
+}
+.g-overlay:hover {
+  background-color: rgba(255, 255, 255, 0);
+  -webkit-box-shadow: 0px 0px 7px 2px #38C2ED;
+  -moz-box-shadow: 0px 0px 7px 2px #38C2ED;
+  box-shadow: 0px 0px 7px 2px #38C2ED;
+}
+.g-overlay .badge.gameId {
+  font-size: 1em;
+  float: right;
+  margin: 6px;
+}
+
+@media (min-width: 1200px) {
+  .in-grid {
+    margin: 6px 0;
+    padding: 0;
+  }
+
+  .g-overlay, .in-grid .g-root {
+    width: 228px;
+    height: 228px;
+    border-radius: 7px;
+  }
+
+  .in-grid .cell {
+    height: 38px;
+    width: 38px;
+  }
+
+  .carId{
+    font-size: .9em;
+  }
+
+  .in-grid .x1 {
+    top: 38px;
+  }
+  .in-grid .x2 {
+    top: 76px;
+  }
+  .in-grid .x3 {
+    top: 114px;
+  }
+  .in-grid .x4 {
+    top: 152px;
+  }
+  .in-grid .x5 {
+    top: 190px;
+  }
+
+  .in-grid .y1 {
+    left: 38px;
+  }
+  .in-grid .y2 {
+    left: 76px;
+  }
+  .in-grid .y3 {
+    left: 114px;
+  }
+  .in-grid .y4 {
+    left: 152px;
+  }
+  .in-grid .y5 {
+    left: 190px;
+  }
+
+  .in-grid .car {
+    margin: 4px;
+    border-radius: 6px;
+  }
+
+  .in-grid .car.vertical {
+    width: 31px;
+  }
+
+  .in-grid .car.vertical.c3 {
+    height: 106px;
+  }
+
+  .in-grid .car.vertical.c2 {
+    height: 68px;
+  }
+
+  .in-grid .car.vertical .carId {
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 10px;
+  }
+
+  .in-grid .car.horizontal {
+    height: 30px;
+    margin-left: 4px;
+  }
+
+  .in-grid .car.horizontal.c3 {
+    width: 106px;
+  }
+
+  .in-grid .car.horizontal.c2 {
+    width: 68px;
+  }
+
+  .in-grid .car.horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 15px;
+    position: absolute;
+    line-height: 34px;
+  }
+
+  .in-grid .car.focused {
+    -webkit-box-shadow: 0px 0px 5px 3px #fff;
+    -moz-box-shadow: 0px 0px 5px 3px #fff;
+    box-shadow: 0px 0px 5px 3px #fff;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px){
+  .in-grid {
+    margin: 8px 0;
+    padding: 0;
+  }
+
+  .g-overlay, .in-grid .g-root {
+    width: 288px;
+    height: 288px;
+    border-radius: 8px;
+  }
+
+  .in-grid .cell {
+    height: 48px;
+    width: 48px;
+  }
+
+  .carId{
+    font-size: .9em;
+  }
+
+  .in-grid .x1 {
+    top: 48px;
+  }
+  .in-grid .x2 {
+    top: 96px;
+  }
+  .in-grid .x3 {
+    top: 144px;
+  }
+  .in-grid .x4 {
+    top: 192px;
+  }
+  .in-grid .x5 {
+    top: 240px;
+  }
+
+  .in-grid .y1 {
+    left: 48px;
+  }
+  .in-grid .y2 {
+    left: 96px;
+  }
+  .in-grid .y3 {
+    left: 144px;
+  }
+  .in-grid .y4 {
+    left: 192px;
+  }
+  .in-grid .y5 {
+    left: 240px;
+  }
+
+  .in-grid .car {
+    margin: 5px;
+    border-radius: 6px;
+  }
+
+  .in-grid .car.vertical {
+    width: 38px;
+  }
+
+  .in-grid .car.vertical.c3 {
+    height: 133px;
+  }
+
+  .in-grid .car.vertical.c2 {
+    height: 85px;
+  }
+
+  .in-grid .car.vertical .carId {
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 13px;
+  }
+
+  .in-grid .car.horizontal {
+    height: 38px;
+    margin-left: 5px;
+  }
+
+  .in-grid .car.horizontal.c3 {
+    width: 134px;
+  }
+
+  .in-grid .car.horizontal.c2 {
+    width: 86px;
+  }
+
+  .in-grid .car.horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 15px;
+    position: absolute;
+    line-height: 36px;
+  }
+
+  .in-grid .car.focused {
+    -webkit-box-shadow: 0px 0px 5px 3px #fff;
+    -moz-box-shadow: 0px 0px 5px 3px #fff;
+    box-shadow: 0px 0px 5px 3px #fff;
+  }
+}
+
+@media /*(min-width: 768px) and */(max-width: 991px){
+  .in-grid {
+    margin: 8px 0;
+    padding: 0;
+  }
+
+  .g-overlay, .in-grid .g-root {
+    width: 330px;
+    height: 330px;
+    border-radius: 8px;
+  }
+
+  .in-grid .cell {
+    height: 55px;
+    width: 55px;
+  }
+
+  .carId{
+    font-size: 1em;
+  }
+
+  .in-grid .x1 {
+    top: 55px;
+  }
+  .in-grid .x2 {
+    top: 110px;
+  }
+  .in-grid .x3 {
+    top: 165px;
+  }
+  .in-grid .x4 {
+    top: 220px;
+  }
+  .in-grid .x5 {
+    top: 275px;
+  }
+
+  .in-grid .y1 {
+    left: 55px;
+  }
+  .in-grid .y2 {
+    left: 110px;
+  }
+  .in-grid .y3 {
+    left: 165px;
+  }
+  .in-grid .y4 {
+    left: 220px;
+  }
+  .in-grid .y5 {
+    left: 275px;
+  }
+
+  .in-grid .car {
+    margin: 5px;
+    border-radius: 8px;
+  }
+
+  .in-grid .car.vertical {
+    width: 44px;
+  }
+
+  .in-grid .car.vertical.c3 {
+    height: 155px;
+  }
+
+  .in-grid .car.vertical.c2 {
+    height: 100px;
+  }
+
+  .in-grid .car.vertical .carId {
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 15px;
+  }
+
+  .in-grid .car.horizontal {
+    height: 45px;
+    margin-left: 5px;
+  }
+
+  .in-grid .car.horizontal.c3 {
+    width: 154px;
+  }
+
+  .in-grid .car.horizontal.c2 {
+    width: 100px;
+  }
+
+  .in-grid .car.horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 20px;
+    position: absolute;
+    line-height: 41px;
+  }
+
+  .in-grid .car.focused {
+    -webkit-box-shadow: 0px 0px 5px 3px #fff;
+    -moz-box-shadow: 0px 0px 5px 3px #fff;
+    box-shadow: 0px 0px 5px 3px #fff;
+  }
 }

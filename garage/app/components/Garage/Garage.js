@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Car from './Car';
+import Cell from './Cell';
 import {Garage as GarageModel} from '../../model/garage';
 import {Car as CarModel} from '../../model/garage';
 
-class Garage extends React.Component {
+export default class Garage extends React.Component {
   constructor() {
     super();
     try {
@@ -23,7 +25,7 @@ class Garage extends React.Component {
   }
 
   componentDidMount(){
-    // Need to focus the garage root node in order for keyboard navigation too work
+    // Need to focus the garage root node in order for keyboard navigation to work
     ReactDOM.findDOMNode(this).focus();
   }
 
@@ -97,26 +99,46 @@ class Garage extends React.Component {
   }
 
   render(){
-    let gameOverMsg;
-    if(this.state.gameOver){
-      gameOverMsg = <h3>Good job, my friend. You managed to exit the garage. Refresh your browser to start it again.</h3>;
-    }
     if(this.state.open){
       var cells = this._renderCells();
       var cars = this.state.model.cars.map((car)=>{
         return (
-          <Car model={car} key={car.id} garageModel={this.state.model}/>
+          <Car model={car} key={car.id} garageModel={this.state.model} interactive={this.props.interactive}/>
         );
       });
-      return (
-        <div className="garage-wrap" tabIndex="0" onKeyDown={this.handleKeyDown}>
-          {gameOverMsg}
-          <div className="g-root">
-            {cells}
-            {cars}
+      var overlay = '';
+      if(this.props.inGrid){
+        overlay = <div className="g-overlay">
+          <span className="badge gameId">{this.props.gameId}</span>
+        </div>;
+      }
+      if(this.props.interactive){
+        let gameOverMsg;
+        if(this.state.gameOver){
+          gameOverMsg = <h3>Good job, my friend. You managed to exit the garage. Refresh your browser to start it again.</h3>;
+        }
+        
+        return (
+          <div className="interactive garage-wrap" tabIndex="0" onKeyDown={this.handleKeyDown}>
+            {gameOverMsg}
+            <div className="g-root">
+              {overlay}
+              {cells}
+              {cars}
+            </div>
           </div>
-        </div>
-      );
+        );
+      } else { // static garage
+        return (
+          <div className="garage-wrap"  >
+            <div className="g-root">
+              {overlay}
+              {cells}
+              {cars}
+            </div>
+          </div>
+        );
+      }
     } else {
       return (
         <h2>Our apology. The garage is closed due to an error.</h2>
@@ -132,64 +154,9 @@ class Garage extends React.Component {
 
         // TODO why does react require us to assign the key outside the component? How can this be done by the component?
         var key = x + '' + y;
-        cells.push(<Cell x={x} y={y} exit={exit} key={key}/>);
+        cells.push(<Cell x={x} y={y} exit={exit} key={key} interactive={this.props.interactive}/>);
       }
     }
     return cells;
   }
 }
-
-class Car extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      hovered: false
-    };
-  }
-
-  handleMouseMove(hovered) {
-    this.setState({hovered: hovered});
-  }
-
-  render(){
-    let model = this.props.model,
-      x = model.posX,
-      y = model.posY,
-      hovered = this.state.hovered;
-    const { myCar, orientation, size, id, focused} = model;
-    var garageModel = this.props.garageModel;
-    if(orientation == 'horizontal'){
-      y = y - size + 1;
-    }
-
-    let className = (myCar ? 'my ' : '') +
-      (focused ? 'focused ' : '') +
-      `${orientation} car x${x} y${y} c${size}` +
-      (hovered ? ' hovered' : '');
-
-    var handleMouseMove = this.handleMouseMove.bind(this);
-    return (
-      <div className={className}
-           onClick={() => {garageModel.focus(id);}}
-           onMouseEnter={() => handleMouseMove(true)}
-           onMouseLeave={() => handleMouseMove(false)}
-      >
-        <span className="carId">{id}</span>
-      </div>
-    );
-  }
-}
-
-class Cell extends React.Component {
-  render(){
-    const { x, y, exit} = this.props;
-    var className = `cell x${x} y${y}` + (exit ? ' exit' : '');
-
-    var exitLabel = exit ? <div className="exitLabel">Exit</div> : '';
-    return (
-      <div className={className}>{exitLabel}</div>
-    );
-  }
-}
-
-export default Garage;
