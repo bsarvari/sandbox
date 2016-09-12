@@ -10,7 +10,7 @@ import Footer from '../../components/Footer';
 import GameSelector from '../../components/GameSelector';
 import s from './styles.css';
 
-export default class GarageApp extends React.Component {
+export default class GarageApp extends React.Component { // TODO move it to components
   
   componentDidMount() {
     document.title = 'Garage';
@@ -22,8 +22,8 @@ export default class GarageApp extends React.Component {
         <Header />
         <div className="container" style={{maxWidth: '1024px'}}>{/*TODO remove this limitation and adjust the non-interactive garage size for large screens for proper spacing in the GameSelector*/}
           <h4 className={`${s.goal}`}>Unblock the yellow car and move it to the exit</h4>
-          <Garage interactive={true}/>
-          {/*<GameSelector/>*/}
+          {/*<Garage interactive={true}/>*/}
+          <GameSelector/>
         </div>
         <Footer/>
       </div>

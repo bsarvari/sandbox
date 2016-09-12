@@ -3,3 +3,23 @@
 * LICENSE.txt file in the root directory of this source tree.
 */
 
+@media (min-width: 1200px) {
+  .celledGarage {
+    margin: 6px 0;
+    padding: 0;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .celledGarage {
+    margin: 8px 0;
+    padding: 0;
+  }
+}
+
+@media /*(min-width: 768px) and */(max-width: 991px) {
+  .celledGarage {
+    margin: 8px 0;
+    padding: 0;
+  }
+}

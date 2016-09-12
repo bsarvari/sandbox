@@ -31,6 +31,13 @@ export default class GameSelector extends React.Component {
 
    */
   render () {
+    var garages = [];
+    for(var i=1; i<9; i++){
+      garages.push(
+        <div className={`${s.celledGarage} col-lg-3 col-md-4 col-sm-6`}>
+          <Garage interactive={false} inGrid={true} gameId={i} key={i}/>
+        </div>);
+    }
     return (
     <div className="panel panel-info"> {/*Not using the bs-react Panel class because I can't add the close button to the header */}
       <div className="panel-heading">Select a Game to Begin
@@ -38,14 +45,7 @@ export default class GameSelector extends React.Component {
       </div>
       <div className="panel-body">
         <div className="row" style={{marginLeft: 0}}>
-          <div className="in-grid col-lg-3 col-md-4 col-sm-6"><Garage interactive={false} inGrid={true} gameId={1}/></div>
-          <div className="in-grid col-lg-3 col-md-4 col-sm-6"><Garage interactive={false} inGrid={true} gameId={2}/></div>
-          <div className="in-grid col-lg-3 col-md-4 col-sm-6"><Garage interactive={false} inGrid={true} gameId={3}/></div>
-          <div className="in-grid col-lg-3 col-md-4 col-sm-6"><Garage interactive={false} inGrid={true} gameId={4}/></div>
-          <div className="in-grid col-lg-3 col-md-4 col-sm-6"><Garage interactive={false} inGrid={true} gameId={5}/></div>
-          <div className="in-grid col-lg-3 col-md-4 col-sm-6"><Garage interactive={false} inGrid={true} gameId={6}/></div>
-          <div className="in-grid col-lg-3 col-md-4 col-sm-6"><Garage interactive={false} inGrid={true} gameId={7}/></div>
-          <div className="in-grid col-lg-3 col-md-4 col-sm-6"><Garage interactive={false} inGrid={true} gameId={8}/></div>
+          {garages}
         </div>
       </div>
     </div>

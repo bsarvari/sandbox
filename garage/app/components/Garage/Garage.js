@@ -4,6 +4,8 @@ import Car from './Car';
 import Cell from './Cell';
 import {Garage as GarageModel} from '../../model/garage';
 import {Car as CarModel} from '../../model/garage';
+import inBoardStyles from './styles/inBoard.css';
+import inGridStyles from './styles/inGameSelector.css';
 
 export default class Garage extends React.Component {
   constructor() {
@@ -100,16 +102,18 @@ export default class Garage extends React.Component {
 
   render(){
     if(this.state.open){
+      var styles = this.props.inGrid ? inGridStyles : inBoardStyles;
+      
       var cells = this._renderCells();
       var cars = this.state.model.cars.map((car)=>{
         return (
-          <Car model={car} key={car.id} garageModel={this.state.model} interactive={this.props.interactive}/>
+          <Car model={car} key={car.id} garageModel={this.state.model} interactive={this.props.interactive} inGrid={this.props.inGrid}/>
         );
       });
       var overlay = '';
       if(this.props.inGrid){
-        overlay = <div className="g-overlay">
-          <span className="badge gameId">{this.props.gameId}</span>
+        overlay = <div className={inGridStyles.overlay}>
+          <span className={`badge ${inGridStyles.gameId}`}>{this.props.gameId}</span>
         </div>;
       }
       if(this.props.interactive){
@@ -117,11 +121,10 @@ export default class Garage extends React.Component {
         if(this.state.gameOver){
           gameOverMsg = <h3>Good job, my friend. You managed to exit the garage. Refresh your browser to start it again.</h3>;
         }
-        
         return (
-          <div className="interactive garage-wrap" tabIndex="0" onKeyDown={this.handleKeyDown}>
+          <div className={styles.interactiveGarageWrap} tabIndex="0" onKeyDown={this.handleKeyDown}>
             {gameOverMsg}
-            <div className="g-root">
+            <div className={styles.root}>
               {overlay}
               {cells}
               {cars}
@@ -130,8 +133,8 @@ export default class Garage extends React.Component {
         );
       } else { // static garage
         return (
-          <div className="garage-wrap"  >
-            <div className="g-root">
+          <div className={styles.garageWrap}  >
+            <div className={styles.root}>
               {overlay}
               {cells}
               {cars}
@@ -154,7 +157,7 @@ export default class Garage extends React.Component {
 
         // TODO why does react require us to assign the key outside the component? How can this be done by the component?
         var key = x + '' + y;
-        cells.push(<Cell x={x} y={y} exit={exit} key={key} interactive={this.props.interactive}/>);
+        cells.push(<Cell x={x} y={y} exit={exit} key={key} interactive={this.props.interactive} inGrid={this.props.inGrid}/>);
       }
     }
     return cells;

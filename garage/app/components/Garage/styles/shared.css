@@ -1,0 +1,61 @@
+/* Styles used both in the game selector and the game board */
+/* ----- Garage styles ----- */
+.garageWrap {
+  outline-style: none; /* the garage root div is focusable such that it can receive key events. We don't want the default focus outline*/
+}
+
+.interactiveGarageWrap {
+  composes: garageWrap;
+  margin-top: 2em; /* Space needed for exit label */ /*TODO this is a board style. Define it there*/
+}
+
+.root {
+  position: relative;
+  background-color: #00b0e8;
+}
+
+/* ----- Car styles ----- */
+.interactiveCar {
+  cursor: pointer;
+}
+
+.car {
+  /*background-color: #FF4081;*/
+  /*background-color: #616161;*/
+  background-color: #3F51B5;
+  position: absolute;
+  color: white;
+}
+
+.hoveredCar {
+  background-color: #4A5BBF;
+}
+
+.focusedCar {
+  -webkit-box-shadow: 0px 0px 8px 7px #fff;
+  -moz-box-shadow:    0px 0px 8px 7px #fff;
+  box-shadow:         0px 0px 8px 7px #fff;
+}
+
+.myCar {
+  background-color: #ffe971;
+  color: #616161;
+}
+
+.myCar.hoveredCar {
+  background-color: #FFEE8F;
+}
+
+.carId {
+  position: absolute;
+}
+
+/* ----- Cell styles ----- */
+.cell {
+  border: 1px solid white;
+  position: absolute;
+}
+
+.exit.cell {
+  background-color: #00D008;
+}
