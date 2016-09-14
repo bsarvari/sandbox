@@ -93,11 +93,12 @@ const config = {
           path.resolve(__dirname, './actions'),
           path.resolve(__dirname, './components'),
           path.resolve(__dirname, './model'),
+          path.resolve(__dirname, './events'),
           path.resolve(__dirname, './core'),
           path.resolve(__dirname, './pages'),
-          path.resolve(__dirname, './main.js'),
+          path.resolve(__dirname, './main.js')
         ],
-        loader: `babel-loader?${JSON.stringify(babelConfig)}`,
+        loader: `babel-loader?${JSON.stringify(babelConfig)}`
       },
       {
         test: /\.css/,

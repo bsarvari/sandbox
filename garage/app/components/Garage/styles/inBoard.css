@@ -1,113 +1,1448 @@
 @import "shared.css";
 
 /* IN BOARD: styles applied to garage instances in the game board */
-/* ----- Garage styles ----- */
-.root {
-  composes: root from './shared.css';
-  width: 600px;
-  height: 600px;
-  border-radius: 11px;
+/* TODO use sass, less or another technology to use variables and avoid repetition */
+/* TODO remove 'composes' where the CSS class name is the same as the one it composes from since it has no effect in these cases. */
+
+@media (min-width: 992px) /*and (min-height: 810px)*/{
+  /* ----- Garage styles ----- */
+  .garageWrap {
+    width: 600px;
+    margin: 0 auto;
+  }
+
+  .root {
+    width: 600px;
+    height: 600px;
+    border-radius: 11px;
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+  /* ----- Car styles ----- */
+  .car {
+    margin: 8px;
+    border-radius: 20px;
+  }
+
+  .carId {
+    composes: carId from './shared.css';
+    font-size: 1.7em;
+  }
+
+  .vertical .carId { /* TODO can't compose shared styles */
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 36px;
+  }
+
+  .horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 36px;
+    position: absolute;
+    line-height: 83px;
+  }
+
+  .car.vertical {
+    width: 84px;
+  }
+  .car.vertical.c2 { /*Takes 2 cells*/
+    height: 184px;
+  }
+  .car.vertical.c3 { /*Takes 3 cells*/
+    height: 284px;
+  }
+
+  .car.horizontal {
+    height: 84px;
+    margin-left: 9px;
+  }
+  .car.horizontal.c2 {
+    width: 182px;
+  }
+  .car.horizontal.c3 {
+    width: 282px;
+  }
+
+  /* ----- Cell styles ----- */
+  .cell {
+    composes: cell from './shared.css';
+    height: 100px;
+    width: 100px;
+  }
+
+  .exitLabel {
+    text-align: center;
+    top: -19px;
+    position: absolute;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    color: black;
+  }
+
+  .x0 {
+    top: 0;
+  }
+  .x1 {
+    top: 100px;
+  }
+  .x2 {
+    top: 200px;
+  }
+  .x3 {
+    top: 300px;
+  }
+  .x4 {
+    top: 400px;
+  }
+  .x5 {
+    top: 500px;
+  }
+
+  .y0 {
+    left: 0;
+  }
+  .y1 {
+    left: 100px;
+  }
+  .y2 {
+    left: 200px;
+  }
+  .y3 {
+    left: 300px;
+  }
+  .y4 {
+    left: 400px;
+  }
+  .y5 {
+    left: 500px;
+  }
 }
 
-/* ----- Car styles ----- */
-.car {
-  composes: car from './shared.css';
-  margin: 8px;
-  border-radius: 20px;
+@media /*(min-width: 992px) and*/ (min-height: 810px){
+  /* ----- Garage styles ----- */
+  .garageWrap {
+    width: 600px;
+    margin: 0 auto;
+  }
+
+  .root {
+    width: 600px;
+    height: 600px;
+    border-radius: 11px;
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+  /* ----- Car styles ----- */
+  .car {
+    margin: 8px;
+    border-radius: 20px;
+  }
+
+  .carId {
+    composes: carId from './shared.css';
+    font-size: 1.7em;
+  }
+
+  .vertical .carId { /* TODO can't compose shared styles */
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 36px;
+  }
+
+  .horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 36px;
+    position: absolute;
+    line-height: 83px;
+  }
+
+  .car.vertical {
+    width: 84px;
+  }
+  .car.vertical.c2 { /*Takes 2 cells*/
+    height: 184px;
+  }
+  .car.vertical.c3 { /*Takes 3 cells*/
+    height: 284px;
+  }
+
+  .car.horizontal {
+    height: 84px;
+    margin-left: 9px;
+  }
+  .car.horizontal.c2 {
+    width: 182px;
+  }
+  .car.horizontal.c3 {
+    width: 282px;
+  }
+
+  /* ----- Cell styles ----- */
+  .cell {
+    composes: cell from './shared.css';
+    height: 100px;
+    width: 100px;
+  }
+
+  .exitLabel {
+    text-align: center;
+    top: -19px;
+    position: absolute;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    color: black;
+  }
+
+  .x0 {
+    top: 0;
+  }
+  .x1 {
+    top: 100px;
+  }
+  .x2 {
+    top: 200px;
+  }
+  .x3 {
+    top: 300px;
+  }
+  .x4 {
+    top: 400px;
+  }
+  .x5 {
+    top: 500px;
+  }
+
+  .y0 {
+    left: 0;
+  }
+  .y1 {
+    left: 100px;
+  }
+  .y2 {
+    left: 200px;
+  }
+  .y3 {
+    left: 300px;
+  }
+  .y4 {
+    left: 400px;
+  }
+  .y5 {
+    left: 500px;
+  }
 }
 
-.carId {
-  composes: carId from './shared.css';
-  font-size: 2em;
+@media (max-width: 991px) /*and (max-height: 809px)*/{
+  .garageWrap {
+    width: 540px;
+    margin: 0 auto;
+  }
+
+  .root {
+    width: 540px;
+    height: 540px;
+    border-radius: 11px;
+    margin-top: 1.9em;
+    margin-bottom: 1.9em;
+  }
+
+  /* ----- Car styles ----- */
+  .car {
+    margin: 8px;
+    border-radius: 20px;
+  }
+
+  .carId {
+    composes: carId from './shared.css';
+    font-size: 1.6em;
+  }
+
+  .vertical .carId {
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 28px;
+  }
+
+  .horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 33px;
+    position: absolute;
+    line-height: 78px;
+  }
+
+  .car.vertical {
+    width: 75px;
+  }
+  .car.vertical.c2 { /*Takes 2 cells*/
+    height: 165px;
+  }
+  .car.vertical.c3 { /*Takes 3 cells*/
+    height: 255px;
+  }
+
+  .car.horizontal {
+    height: 75px;
+    margin-left: 7px;
+  }
+  .car.horizontal.c2 {
+    width: 165px;
+  }
+  .car.horizontal.c3 {
+    width: 254px;
+  }
+
+  /* ----- Cell styles ----- */
+  .cell {
+    composes: cell from './shared.css';
+    height: 90px;
+    width: 90px;
+  }
+
+  .exitLabel {
+    text-align: center;
+    top: -19px;
+    position: absolute;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    color: black;
+  }
+
+  .x0 {
+    top: 0;
+  }
+  .x1 {
+    top: 90px;
+  }
+  .x2 {
+    top: 180px;
+  }
+  .x3 {
+    top: 270px;
+  }
+  .x4 {
+    top: 360px;
+  }
+  .x5 {
+    top: 450px;
+  }
+
+  .y0 {
+    left: 0;
+  }
+  .y1 {
+    left: 90px;
+  }
+  .y2 {
+    left: 180px;
+  }
+  .y3 {
+    left: 270px;
+  }
+  .y4 {
+    left: 360px;
+  }
+  .y5 {
+    left: 450px;
+  }
 }
 
-.vertical .carId { /* TODO can't compose shared styles */
-  left: 0;
-  right: 0;
-  text-align: center;
-  top: 36px;
+@media /*(max-width: 991px) and*/ (max-height: 809px){
+  .garageWrap {
+    width: 540px;
+    margin: 0 auto;
+  }
+
+  .root {
+    width: 540px;
+    height: 540px;
+    border-radius: 11px;
+    margin-top: 1.9em;
+    margin-bottom: 1.9em;
+  }
+
+  /* ----- Car styles ----- */
+  .car {
+    margin: 8px;
+    border-radius: 20px;
+  }
+
+  .carId {
+    composes: carId from './shared.css';
+    font-size: 1.6em;
+  }
+
+  .vertical .carId {
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 28px;
+  }
+
+  .horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 33px;
+    position: absolute;
+    line-height: 78px;
+  }
+
+  .car.vertical {
+    width: 75px;
+  }
+  .car.vertical.c2 { /*Takes 2 cells*/
+    height: 165px;
+  }
+  .car.vertical.c3 { /*Takes 3 cells*/
+    height: 255px;
+  }
+
+  .car.horizontal {
+    height: 75px;
+    margin-left: 7px;
+  }
+  .car.horizontal.c2 {
+    width: 165px;
+  }
+  .car.horizontal.c3 {
+    width: 254px;
+  }
+
+  /* ----- Cell styles ----- */
+  .cell {
+    composes: cell from './shared.css';
+    height: 90px;
+    width: 90px;
+  }
+
+  .exitLabel {
+    text-align: center;
+    top: -19px;
+    position: absolute;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    color: black;
+  }
+
+  .x0 {
+    top: 0;
+  }
+  .x1 {
+    top: 90px;
+  }
+  .x2 {
+    top: 180px;
+  }
+  .x3 {
+    top: 270px;
+  }
+  .x4 {
+    top: 360px;
+  }
+  .x5 {
+    top: 450px;
+  }
+
+  .y0 {
+    left: 0;
+  }
+  .y1 {
+    left: 90px;
+  }
+  .y2 {
+    left: 180px;
+  }
+  .y3 {
+    left: 270px;
+  }
+  .y4 {
+    left: 360px;
+  }
+  .y5 {
+    left: 450px;
+  }
 }
 
-.horizontal .carId {
-  top: 0;
-  bottom: 0;
-  right: 36px;
-  position: absolute;
-  line-height: 83px;
+@media (max-width: 768px) /*and (max-height: 809px)*/{
+  .garageWrap {
+    width: 504px;
+    margin: 0 auto;
+  }
+
+  .root {
+    width: 504px;
+    height: 504px;
+    border-radius: 11px;
+    margin-top: 1.9em;
+    margin-bottom: 1.9em;
+  }
+
+  /* ----- Car styles ----- */
+  .car {
+    margin: 7px;
+    border-radius: 14px;
+  }
+
+  .focusedCar {
+    -webkit-box-shadow: 0px 0px 8px 5px #fff;
+    -moz-box-shadow:    0px 0px 8px 5px #fff;
+    box-shadow:         0px 0px 8px 5px #fff;
+  }
+
+  .carId {
+    /*composes: carId from './shared.css';*/
+    font-size: 1.3em;
+  }
+
+  .vertical .carId {
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 28px;
+  }
+
+  .horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 33px;
+    position: absolute;
+    line-height: 75px;
+  }
+
+  .car.vertical {
+    width: 71px;
+  }
+  .car.vertical.c2 { /*Takes 2 cells*/
+    height: 155px;
+  }
+  .car.vertical.c3 { /*Takes 3 cells*/
+    height: 239px;
+  }
+
+  .car.horizontal {
+    height: 71px;
+    margin-left: 6px;
+  }
+  .car.horizontal.c2 {
+    width: 156px;
+  }
+  .car.horizontal.c3 {
+    width: 239px;
+  }
+
+  /* ----- Cell styles ----- */
+  .cell {
+    composes: cell from './shared.css';
+    height: 84px;
+    width: 84px;
+  }
+
+  .exitLabel {
+    text-align: center;
+    top: -19px;
+    position: absolute;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    color: black;
+    font-size: .9em;
+  }
+
+  .x0 {
+    top: 0;
+  }
+  .x1 {
+    top: 84px;
+  }
+  .x2 {
+    top: 168px;
+  }
+  .x3 {
+    top: 252px;
+  }
+  .x4 {
+    top: 336px;
+  }
+  .x5 {
+    top: 420px;
+  }
+
+  .y0 {
+    left: 0;
+  }
+  .y1 {
+    left: 84px;
+  }
+  .y2 {
+    left: 168px;
+  }
+  .y3 {
+    left: 252px;
+  }
+  .y4 {
+    left: 336px;
+  }
+  .y5 {
+    left: 420px;
+  }
 }
 
-.car.vertical {
-  width: 86px;
-}
-.car.vertical.c2 { /*Takes 2 cells*/
-  height: 186px;
-}
-.car.vertical.c3 { /*Takes 3 cells*/
-  height: 286px;
+@media /*(max-width: 768px) and*/ (max-height: 809px){
+  .garageWrap {
+    width: 504px;
+    margin: 0 auto;
+  }
+
+  .root {
+    width: 504px;
+    height: 504px;
+    border-radius: 11px;
+    margin-top: 1.9em;
+    margin-bottom: 1.9em;
+  }
+
+  /* ----- Car styles ----- */
+  .car {
+    margin: 7px;
+    border-radius: 14px;
+  }
+
+  .focusedCar {
+    -webkit-box-shadow: 0px 0px 8px 4px #fff;
+    -moz-box-shadow:    0px 0px 8px 4px #fff;
+    box-shadow:         0px 0px 8px 4px #fff;
+  }
+
+  .carId {
+    /*composes: carId from './shared.css';*/
+    font-size: 1.3em;
+  }
+
+  .vertical .carId {
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 28px;
+  }
+
+  .horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 33px;
+    position: absolute;
+    line-height: 75px;
+  }
+
+  .car.vertical {
+    width: 71px;
+  }
+  .car.vertical.c2 { /*Takes 2 cells*/
+    height: 155px;
+  }
+  .car.vertical.c3 { /*Takes 3 cells*/
+    height: 239px;
+  }
+
+  .car.horizontal {
+    height: 71px;
+    margin-left: 6px;
+  }
+  .car.horizontal.c2 {
+    width: 156px;
+  }
+  .car.horizontal.c3 {
+    width: 239px;
+  }
+
+  /* ----- Cell styles ----- */
+  .cell {
+    composes: cell from './shared.css';
+    height: 84px;
+    width: 84px;
+  }
+
+  .exitLabel {
+    text-align: center;
+    top: -19px;
+    position: absolute;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    color: black;
+    font-size: .9em;
+  }
+
+  .x0 {
+    top: 0;
+  }
+  .x1 {
+    top: 84px;
+  }
+  .x2 {
+    top: 168px;
+  }
+  .x3 {
+    top: 252px;
+  }
+  .x4 {
+    top: 336px;
+  }
+  .x5 {
+    top: 420px;
+  }
+
+  .y0 {
+    left: 0;
+  }
+  .y1 {
+    left: 84px;
+  }
+  .y2 {
+    left: 168px;
+  }
+  .y3 {
+    left: 252px;
+  }
+  .y4 {
+    left: 336px;
+  }
+  .y5 {
+    left: 420px;
+  }
 }
 
-.car.horizontal {
-  height: 84px;
-  margin-left: 10px;
-}
-.car.horizontal.c2 {
-  width: 182px;
-}
-.car.horizontal.c3 {
-  width: 282px;
+@media (max-width: 580px) /*and (max-height: 640px)*/{
+  .garageWrap {
+    width: 420px;
+    margin: 0 auto;
+  }
+
+  .root {
+    width: 420px;
+    height: 420px;
+    border-radius: 11px;
+    margin-top: 1.6em;
+    margin-bottom: 1.8em;
+  }
+
+  /* ----- Car styles ----- */
+  .car {
+    margin: 6px;
+    border-radius: 13px;
+  }
+
+  .focusedCar {
+    -webkit-box-shadow: 0px 0px 8px 5px #fff;
+    -moz-box-shadow:    0px 0px 8px 5px #fff;
+    box-shadow:         0px 0px 8px 5px #fff;
+  }
+
+  .carId {
+    font-size: 1.1em;
+  }
+
+  .vertical .carId {
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 24px;
+  }
+
+  .horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 28px;
+    position: absolute;
+    line-height: 62px;
+  }
+
+  .car.vertical {
+    width: 59px;
+  }
+  .car.vertical.c2 { /*Takes 2 cells*/
+    height: 129px;
+  }
+  .car.vertical.c3 { /*Takes 3 cells*/
+    height: 199px;
+  }
+
+  .car.horizontal {
+    height: 59px;
+    margin-left: 6px;
+  }
+  .car.horizontal.c2 {
+    width: 128px;
+  }
+  .car.horizontal.c3 {
+    width: 198px;
+  }
+
+  /* ----- Cell styles ----- */
+  .cell {
+    /*composes: cell from './shared.css';*/
+    height: 70px;
+    width: 70px;
+  }
+
+  .exitLabel {
+    text-align: center;
+    top: -19px;
+    position: absolute;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    color: black;
+    font-size: .9em;
+  }
+
+  .x0 {
+    top: 0;
+  }
+  .x1 {
+    top: 70px;
+  }
+  .x2 {
+    top: 140px;
+  }
+  .x3 {
+    top: 210px;
+  }
+  .x4 {
+    top: 280px;
+  }
+  .x5 {
+    top: 350px;
+  }
+
+  .y0 {
+    left: 0;
+  }
+  .y1 {
+    left: 70px;
+  }
+  .y2 {
+    left: 140px;
+  }
+  .y3 {
+    left: 210px;
+  }
+  .y4 {
+    left: 280px;
+  }
+  .y5 {
+    left: 350px;
+  }
 }
 
-/* ----- Cell styles ----- */
-.cell {
-  composes: cell from './shared.css';
-  height: 100px;
-  width: 100px;
+@media /*(max-width: 580px) and*/ (max-height: 640px){
+  .garageWrap {
+    width: 420px;
+    margin: 0 auto;
+  }
+
+  .root {
+    width: 420px;
+    height: 420px;
+    border-radius: 11px;
+    margin-top: 1.6em;
+    margin-bottom: 1.8em;
+  }
+
+  /* ----- Car styles ----- */
+  .car {
+    margin: 6px;
+    border-radius: 13px;
+  }
+
+  .focusedCar {
+    -webkit-box-shadow: 0px 0px 8px 5px #fff;
+    -moz-box-shadow:    0px 0px 8px 5px #fff;
+    box-shadow:         0px 0px 8px 5px #fff;
+  }
+
+  .carId {
+    font-size: 1.1em;
+  }
+
+  .vertical .carId {
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 24px;
+  }
+
+  .horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 28px;
+    position: absolute;
+    line-height: 62px;
+  }
+
+  .car.vertical {
+    width: 59px;
+  }
+  .car.vertical.c2 { /*Takes 2 cells*/
+    height: 129px;
+  }
+  .car.vertical.c3 { /*Takes 3 cells*/
+    height: 199px;
+  }
+
+  .car.horizontal {
+    height: 59px;
+    margin-left: 6px;
+  }
+  .car.horizontal.c2 {
+    width: 128px;
+  }
+  .car.horizontal.c3 {
+    width: 198px;
+  }
+
+  /* ----- Cell styles ----- */
+  .cell {
+    /*composes: cell from './shared.css';*/
+    height: 70px;
+    width: 70px;
+  }
+
+  .exitLabel {
+    text-align: center;
+    top: -19px;
+    position: absolute;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    color: black;
+    font-size: .9em;
+  }
+
+  .x0 {
+    top: 0;
+  }
+  .x1 {
+    top: 70px;
+  }
+  .x2 {
+    top: 140px;
+  }
+  .x3 {
+    top: 210px;
+  }
+  .x4 {
+    top: 280px;
+  }
+  .x5 {
+    top: 350px;
+  }
+
+  .y0 {
+    left: 0;
+  }
+  .y1 {
+    left: 70px;
+  }
+  .y2 {
+    left: 140px;
+  }
+  .y3 {
+    left: 210px;
+  }
+  .y4 {
+    left: 280px;
+  }
+  .y5 {
+    left: 350px;
+  }
 }
 
-.exitLabel {
-  text-align: center;
-  top: -19px;
-  position: absolute;
-  font-weight: bold;
-  left: 0;
-  right: 0;
-  color: black;
+@media (max-width: 510px) /*and (max-height: 610px)*/{
+
+  .garageWrap {
+    width: 330px;
+    margin: 0 auto;
+  }
+
+  .root {
+    width: 330px;
+    height: 330px;
+    border-radius: 8px;
+    margin-top: 1.4em;
+    margin-bottom: 1.6em;
+  }
+
+  .exitLabel {
+    text-align: center;
+    top: -18px;
+    position: absolute;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    color: black;
+    font-size: .9em;
+  }
+
+  /* ----- Car styles ----- */
+  .car {
+    margin: 5px;
+    border-radius: 8px;
+  }
+
+  .car.vertical {
+    width: 44px;
+  }
+
+  .car.vertical.c3 {
+    height: 155px;
+  }
+
+  .car.vertical.c2 {
+    height: 100px;
+  }
+
+  .car.horizontal {
+    height: 45px;
+    margin-left: 5px;
+  }
+
+  .car.horizontal.c3 {
+    width: 154px;
+  }
+
+  .car.horizontal.c2 {
+    width: 100px;
+  }
+
+  .car.focused {
+    -webkit-box-shadow: 0px 0px 5px 3px #fff;
+    -moz-box-shadow: 0px 0px 5px 3px #fff;
+    box-shadow: 0px 0px 5px 3px #fff;
+  }
+  .carId {
+    font-size: 1em;
+  }
+
+  .car.vertical .carId {
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 15px;
+  }
+
+  .car.horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 20px;
+    position: absolute;
+    line-height: 41px;
+  }
+
+  /* ----- Cell styles ----- */
+  .cell {
+    height: 55px;
+    width: 55px;
+  }
+
+  .x1 {
+    top: 55px;
+  }
+  .x2 {
+    top: 110px;
+  }
+  .x3 {
+    top: 165px;
+  }
+  .x4 {
+    top: 220px;
+  }
+  .x5 {
+    top: 275px;
+  }
+
+  .y1 {
+    left: 55px;
+  }
+  .y2 {
+    left: 110px;
+  }
+  .y3 {
+    left: 165px;
+  }
+  .y4 {
+    left: 220px;
+  }
+  .y5 {
+    left: 275px;
+  }
 }
 
-.x0 {
-  top: 0;
-}
-.x1 {
-  top: 100px;
-}
-.x2 {
-  top: 200px;
-}
-.x3 {
-  top: 300px;
-}
-.x4 {
-  top: 400px;
-}
-.x5 {
-  top: 500px;
+@media /*(max-width: 510px) and*/ (max-height: 610px){
+.garageWrap {
+    width: 330px;
+    margin: 0 auto;
+  }
+
+  .root {
+    width: 330px;
+    height: 330px;
+    border-radius: 8px;
+    margin-top: 1.4em;
+    margin-bottom: 1.6em;
+  }
+
+  .exitLabel {
+    text-align: center;
+    top: -18px;
+    position: absolute;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    color: black;
+    font-size: .9em;
+  }
+
+  /* ----- Car styles ----- */
+  .car {
+    margin: 5px;
+    border-radius: 8px;
+  }
+
+  .car.vertical {
+    width: 44px;
+  }
+
+  .car.vertical.c3 {
+    height: 155px;
+  }
+
+  .car.vertical.c2 {
+    height: 100px;
+  }
+
+  .car.horizontal {
+    height: 45px;
+    margin-left: 5px;
+  }
+
+  .car.horizontal.c3 {
+    width: 154px;
+  }
+
+  .car.horizontal.c2 {
+    width: 100px;
+  }
+
+  .car.focused {
+    -webkit-box-shadow: 0px 0px 5px 3px #fff;
+    -moz-box-shadow: 0px 0px 5px 3px #fff;
+    box-shadow: 0px 0px 5px 3px #fff;
+  }
+  .carId {
+    font-size: 1em;
+  }
+
+  .car.vertical .carId {
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 15px;
+  }
+
+  .car.horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 20px;
+    position: absolute;
+    line-height: 41px;
+  }
+
+  /* ----- Cell styles ----- */
+  .cell {
+    height: 55px;
+    width: 55px;
+  }
+
+  .x1 {
+    top: 55px;
+  }
+  .x2 {
+    top: 110px;
+  }
+  .x3 {
+    top: 165px;
+  }
+  .x4 {
+    top: 220px;
+  }
+  .x5 {
+    top: 275px;
+  }
+
+  .y1 {
+    left: 55px;
+  }
+  .y2 {
+    left: 110px;
+  }
+  .y3 {
+    left: 165px;
+  }
+  .y4 {
+    left: 220px;
+  }
+  .y5 {
+    left: 275px;
+  }
 }
 
-.y0 {
-  left: 0;
+@media (max-width: 400px) /*and (max-height: 510px)*/{
+  .garageWrap {
+    width: 288px;
+    margin: 0 auto;
+  }
+
+  .root {
+    width: 288px;
+    height: 288px;
+    border-radius: 8px;
+    margin-top: 1.3em;
+    margin-bottom: 1.5em;
+  }
+
+  .exitLabel {
+    text-align: center;
+    top: -18px;
+    position: absolute;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    color: black;
+    font-size: .85em;
+  }
+
+  /* ----- Car styles ----- */
+  .car {
+    margin: 5px;
+    border-radius: 6px;
+  }
+
+  .car.vertical {
+    width: 38px;
+  }
+
+  .car.vertical.c3 {
+    height: 133px;
+  }
+
+  .car.vertical.c2 {
+    height: 85px;
+  }
+
+  .car.horizontal {
+    height: 38px;
+    margin-left: 5px;
+  }
+
+  .car.horizontal.c3 {
+    width: 134px;
+  }
+
+  .car.horizontal.c2 {
+    width: 86px;
+  }
+
+  .car.focused {
+    -webkit-box-shadow: 0px 0px 5px 3px #fff;
+    -moz-box-shadow: 0px 0px 5px 3px #fff;
+    box-shadow: 0px 0px 5px 3px #fff;
+  }
+
+  .carId{
+    font-size: .9em;
+  }
+
+  .car.vertical .carId {
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 13px;
+  }
+
+  .car.horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 15px;
+    position: absolute;
+    line-height: 36px;
+  }
+
+  /* ----- Cell styles ----- */
+  .cell {
+    height: 48px;
+    width: 48px;
+  }
+
+  .x1 {
+    top: 48px;
+  }
+  .x2 {
+    top: 96px;
+  }
+  .x3 {
+    top: 144px;
+  }
+  .x4 {
+    top: 192px;
+  }
+  .x5 {
+    top: 240px;
+  }
+
+  .y1 {
+    left: 48px;
+  }
+  .y2 {
+    left: 96px;
+  }
+  .y3 {
+    left: 144px;
+  }
+  .y4 {
+    left: 192px;
+  }
+  .y5 {
+    left: 240px;
+  }
 }
-.y1 {
-  left: 100px;
-}
-.y2 {
-  left: 200px;
-}
-.y3 {
-  left: 300px;
-}
-.y4 {
-  left: 400px;
-}
-.y5 {
-  left: 500px;
+
+@media /*(max-width: 400px) and*/ (max-height: 510px){
+  .garageWrap {
+    width: 288px;
+    margin: 0 auto;
+  }
+
+  .root {
+    width: 288px;
+    height: 288px;
+    border-radius: 8px;
+    margin-top: 1.3em;
+    margin-bottom: 1.5em;
+  }
+
+  .exitLabel {
+    text-align: center;
+    top: -18px;
+    position: absolute;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    color: black;
+    font-size: .85em;
+  }
+
+  /* ----- Car styles ----- */
+  .car {
+    margin: 5px;
+    border-radius: 6px;
+  }
+
+  .car.vertical {
+    width: 38px;
+  }
+
+  .car.vertical.c3 {
+    height: 133px;
+  }
+
+  .car.vertical.c2 {
+    height: 85px;
+  }
+
+  .car.horizontal {
+    height: 38px;
+    margin-left: 5px;
+  }
+
+  .car.horizontal.c3 {
+    width: 134px;
+  }
+
+  .car.horizontal.c2 {
+    width: 86px;
+  }
+
+  .car.focused {
+    -webkit-box-shadow: 0px 0px 5px 3px #fff;
+    -moz-box-shadow: 0px 0px 5px 3px #fff;
+    box-shadow: 0px 0px 5px 3px #fff;
+  }
+
+  .carId{
+    font-size: .9em;
+  }
+
+  .car.vertical .carId {
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 13px;
+  }
+
+  .car.horizontal .carId {
+    top: 0;
+    bottom: 0;
+    right: 15px;
+    position: absolute;
+    line-height: 36px;
+  }
+
+  /* ----- Cell styles ----- */
+  .cell {
+    height: 48px;
+    width: 48px;
+  }
+
+  .x1 {
+    top: 48px;
+  }
+  .x2 {
+    top: 96px;
+  }
+  .x3 {
+    top: 144px;
+  }
+  .x4 {
+    top: 192px;
+  }
+  .x5 {
+    top: 240px;
+  }
+
+  .y1 {
+    left: 48px;
+  }
+  .y2 {
+    left: 96px;
+  }
+  .y3 {
+    left: 144px;
+  }
+  .y4 {
+    left: 192px;
+  }
+  .y5 {
+    left: 240px;
+  }
 }

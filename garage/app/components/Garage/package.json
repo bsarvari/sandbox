@@ -1,6 +1,6 @@
 {
-  "name": "Garage",
+  "name": "GarageView",
   "version": "0.0.0",
   "private": true,
-  "main": "./Garage.js"
+  "main": "./GarageView.js"
 }

@@ -3,6 +3,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 import FocusMoveManager from './FocusMoveManager';
+import Dispatcher from '../events/Dispatcher';
+
 class Garage {
   /**
    * @param cars
@@ -15,6 +17,17 @@ class Garage {
     if(cars) {
       cars.forEach((car) => this.park(car));
     }
+    this.setStateChangeListener(onStateChange);
+  }
+  
+  clone(){
+    let clonedCars = [];
+    this.cars.forEach((car)=>{
+      clonedCars.push(car.clone());
+    });
+    return new Garage(clonedCars);
+  }
+  setStateChangeListener (onStateChange) {
     if(onStateChange){
       this.notifyStateChangeListener = onStateChange;
     }
@@ -107,7 +120,11 @@ class Garage {
       throw e;
     }
     this.checkGameOver();
-    this.notifyStateChangeListener(this);
+    Dispatcher.fire({
+      eventType: 'garage-state-change',
+      garageModel: this
+    });
+
     return car;
   }
 
@@ -134,7 +151,11 @@ class Garage {
       throw e;
     }
     this.checkGameOver();
-    this.notifyStateChangeListener(this);
+    Dispatcher.fire({
+      eventType: 'garage-state-change',
+      garageModel: this
+    });
+    
     return car;
   }
   
@@ -175,7 +196,10 @@ class Garage {
       focusedCar.focused = false;
     }
     car.focused = true;
-    this.notifyStateChangeListener(this);
+    Dispatcher.fire({
+      eventType: 'garage-state-change',
+      garageModel: this
+    });
   }
   
   getFocusedCar(){
@@ -274,8 +298,22 @@ class Garage {
     return matrix;
   }
 
+  /* Useful in browser consoles */
+  asStringMatrix(){
+    let rows = this.asMatrix(),
+      str = '';
+    rows.forEach(cells => {
+      cells.forEach(cell => {
+        str = `${str} ${cell<10 ? ' '+cell : cell}`;
+      });
+      str = `${str} \n`;
+    });
+    return str;
+  }
+
   print(){
-    console.log(this.asMatrix());
+    // console.log(this.asMatrix());
+    console.log(this.asStringMatrix());
   }
 }
 
@@ -294,6 +332,10 @@ class Car {
     this.myCar = myCar;
   }
 
+  clone(){
+    return new Car(this.id, this.size, this.orientation, this.posX, this.posY, this.focused, this.myCar);
+  }
+  
   print(){
     console.log(this);
   }

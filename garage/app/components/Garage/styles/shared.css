@@ -1,12 +1,12 @@
 /* Styles used both in the game selector and the game board */
+
+.msgIcon {
+  margin-right: .7em;
+}
+
 /* ----- Garage styles ----- */
 .garageWrap {
   outline-style: none; /* the garage root div is focusable such that it can receive key events. We don't want the default focus outline*/
-}
-
-.interactiveGarageWrap {
-  composes: garageWrap;
-  margin-top: 2em; /* Space needed for exit label */ /*TODO this is a board style. Define it there*/
 }
 
 .root {

@@ -5,7 +5,7 @@ import inGridStyles from './styles/inGameSelector.css';
 export default class Car extends React.Component {
   constructor() {
     super();
-    this.state = {
+    this.state = { // TODO we could use pure CSS for hovered style and make the Car component stateless
       hovered: false
     };
   }
@@ -21,7 +21,7 @@ export default class Car extends React.Component {
       hovered = this.state.hovered,
       interactive = this.props.interactive, 
       inGrid = this.props.inGrid, // part of a garage displayed in the game selector 
-      styles = inGrid ? inGridStyles : inBoardStyles;
+      styles = inGrid ? inGridStyles : inBoardStyles; // TODO pass in styles instead of inGrid
 
     const { myCar, orientation, size, id, focused} = model;
     var garageModel = this.props.garageModel;
@@ -43,7 +43,7 @@ export default class Car extends React.Component {
       var handleMouseMove = this.handleMouseMove.bind(this);
       return (
         <div className={className}
-             onClick={() => {garageModel.focus(id);}}
+             onClick={() => {garageModel.focus(id);}} // TODO fire an event instead
              onMouseEnter={() => handleMouseMove(true)}
              onMouseLeave={() => handleMouseMove(false)}
         >
