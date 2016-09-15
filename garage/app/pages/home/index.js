@@ -118,7 +118,10 @@ export default class GarageApp extends React.Component { // TODO move it to comp
       content =
       <Alert bsStyle="warning">
         <Glyphicon glyph="exclamation-sign" style={{top: '2px', paddingRight: '.4em'}}/>
-        <strong>Nothing selected.</strong> To start playing select a game.
+        <strong>Nothing selected.</strong>To start playing&nbsp;
+        <a href='#' className='alert-link' onClick={()=>{
+          Dispatcher.fire({eventType: 'select-game-clicked',source: this});
+         }}>select a game</a>.
       </Alert>;
     }
 
