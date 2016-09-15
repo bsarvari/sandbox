@@ -23,6 +23,8 @@ export default class Header extends React.Component {
   }
 
   render () {
+    const showSelectGame = this.props.showSelectGame ? {} : {display: 'none'};
+    const showBackToGame = this.props.showBackToGame ? {} : {display: 'none'};
     return (
       <Navbar fixedTop expanded={this.state.navBarExpanded} onToggle={()=>{
         this.setState({navBarExpanded: !this.state.navBarExpanded});
@@ -33,14 +35,21 @@ export default class Header extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavItem href="#" onClick={()=>{
+            <NavItem style={showSelectGame} href="#" onClick={()=>{
               this.setState({navBarExpanded: false});
               Dispatcher.fire({
                 eventType: 'select-game-clicked',
                 source: this
               });
-            }}>Select Game</NavItem>
-            <NavItem onClick={this.toggleHelpView}><Glyphicon glyph="question-sign" className={`${s.helpIcon}`}/>Help</NavItem>
+            }}><Glyphicon glyph="th" className={`${s.headerItemIcon}`}/>Select Game</NavItem>
+            <NavItem style={showBackToGame} href="#" onClick={()=>{
+              this.setState({navBarExpanded: false});
+              Dispatcher.fire({
+                eventType: 'close-game-selector-clicked',
+                source: this
+              });
+            }}><Glyphicon glyph="chevron-left" className={`${s.headerItemIcon}`}/>Back to Game</NavItem>
+            <NavItem onClick={this.toggleHelpView}><Glyphicon glyph="question-sign" className={`${s.headerItemIcon}`}/>Help</NavItem>
           </Nav>
         </Navbar.Collapse>
         <HelpView parent={this}/>{/*TODO this is more of a global component thus should be moved to the root level.*/}

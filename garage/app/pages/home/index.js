@@ -94,7 +94,10 @@ export default class GarageApp extends React.Component { // TODO move it to comp
   }
 
   render() {
-    var content ='';
+    let content ='',
+      showSelectGame = !this.state.showGameSelector, // only displaying the 'Select Game' header item if not the GameSelector is displayed
+      showBackToGame = this.state.showGameSelector && this.state.inBoardGarage;
+
     if(this.state.showGameSelector){
       content = <GameSelector/>;
       
@@ -121,7 +124,7 @@ export default class GarageApp extends React.Component { // TODO move it to comp
 
     return (
       <div>
-        <Header />
+        <Header showSelectGame={showSelectGame} showBackToGame={showBackToGame}/>
         <div className="container" >
           {content}
         </div>
