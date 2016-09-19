@@ -4,6 +4,19 @@
 /* TODO use sass, less or another technology to use variables and avoid repetition */
 /* TODO remove 'composes' where the CSS class name is the same as the one it composes from since it has no effect in these cases. */
 
+.dropProxy.cell {
+  border: 0;
+  opacity: .3;
+  z-index: 100;
+  background-color: white;
+}
+
+.dropPreview.car {
+  background-color: transparent;
+  border: 2px solid;
+  border-style: dashed;
+}
+
 @media (min-width: 992px) /*and (min-height: 810px)*/{
   /* ----- Garage styles ----- */
   .garageWrap {

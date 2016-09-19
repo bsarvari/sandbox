@@ -1,8 +1,47 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
+import { DragSource } from 'react-dnd';
+import Dispatcher from '../../events/Dispatcher';
 import inBoardStyles from './styles/inBoard.css';
 import inGridStyles from './styles/inGameSelector.css';
 
-export default class Car extends React.Component {
+const carSource = {
+  beginDrag(props, monitor, component) {
+    let dom = ReactDOM.findDOMNode(component);
+
+    Dispatcher.fire({
+      eventType: 'car-drag-started',
+      carModel: props.model,
+
+      // car dimension
+      width: dom.offsetWidth,
+      height: dom.offsetHeight
+    });
+
+    return {
+      carModel: props.model
+    };
+  },
+
+  endDrag(props, monitor) {
+    if(!monitor.didDrop()){ // if it was dropped, the garage is already in proper state--no need to fire
+      Dispatcher.fire({
+        eventType: 'car-drag-ended',
+        carModel: props.model
+      });
+    }
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+    connectDragPreview: connect.dragPreview() // TODO use this to return PNG files as preview images
+  }
+}
+
+class Car extends React.Component {
   constructor() {
     super();
     this.state = { // TODO we could use pure CSS for hovered style and make the Car component stateless
@@ -28,7 +67,7 @@ export default class Car extends React.Component {
     if(orientation == 'horizontal'){
       y = y - size + 1;
     }
-    
+
     let className = `${myCar ? styles.myCar : ''} 
     ${(focused && interactive ? styles.focusedCar : '')}
     ${styles[orientation]} 
@@ -40,12 +79,14 @@ export default class Car extends React.Component {
     ${(hovered && interactive ? styles.hoveredCar : '')}`;
     
     if(interactive){
+      const {connectDragSource} = this.props;
       var handleMouseMove = this.handleMouseMove.bind(this);
-      return (
+      return connectDragSource(
         <div className={className}
-             onClick={() => {garageModel.focus(id);}} // TODO fire an event instead
+             onMouseDown={() => {garageModel.focus(id);}} // TODO fire an event instead
              onMouseEnter={() => handleMouseMove(true)}
              onMouseLeave={() => handleMouseMove(false)}
+             style={{display: this.props.hide ? 'none' : 'block'}}
         >
           <span className={styles.carId}>{id}</span>
         </div>
@@ -60,3 +101,5 @@ export default class Car extends React.Component {
     }
   }
 }
+
+export default DragSource("Car", carSource, collect)(Car);

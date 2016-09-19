@@ -8,16 +8,17 @@ import Dispatcher from '../events/Dispatcher';
 class Garage {
   /**
    * @param cars
-   * @param onStateChange a callback method for state change events.
    */
-  constructor(cars, onStateChange) {
+  constructor(cars) {
     this._focusMove = new FocusMoveManager(this);
     this.cars = [];
-    this.notifyStateChangeListener = ()=>{};
     if(cars) {
       cars.forEach((car) => this.park(car));
     }
-    this.setStateChangeListener(onStateChange);
+    this.up = this.up.bind(this);
+    this.down = this.down.bind(this);
+    this.left = this.left.bind(this);
+    this.right = this.right.bind(this);
   }
   
   clone(){
@@ -27,50 +28,49 @@ class Garage {
     });
     return new Garage(clonedCars);
   }
-  setStateChangeListener (onStateChange) {
-    if(onStateChange){
-      this.notifyStateChangeListener = onStateChange;
-    }
-  }
-  
+
   /**
    * Move a vertical car up <code>cells</code> number of cells
    * @param {Car | Number} carSpec either a Car or a car id
    * @param {Number} cells the number of the cells the car should move up
+   * @param {boolean} muteEvent should the method fire a car move event in case of success?
    * @return {Car|undefined} the car if the move succeeds
    */
-  up(carSpec, cells){
-    this._moveVertically(carSpec, cells, 'up');
+  up(carSpec, cells, muteEvent){
+    this._moveVertically(carSpec, cells, 'up', muteEvent);
   }
 
   /**
    * Move a vertical car down <code>cells</code> number of cells
    * @param {Car | Number} carSpec either a Car or a car id
    * @param {Number} cells the number of the cells the car should move down
+   * @param {boolean} muteEvent should the method fire a car move event in case of success?
    * @return {Car|undefined} the car if the move succeeds
    */
-  down(carSpec, cells){
-    return this._moveVertically(carSpec, cells, 'down');
+  down(carSpec, cells, muteEvent){
+    return this._moveVertically(carSpec, cells, 'down', muteEvent);
   }
   
   /**
    * Move a horizontal car left <code>cells</code> number of cells
    * @param {Car | Number} carSpec either a Car or a car id
    * @param {Number} cells the number of the cells the car should move to the left
+   * @param {boolean} muteEvent should the method fire a car move event in case of success?
    * @return {Car|undefined} the car if the move succeeds
    */
-  left(carSpec, cells){
-    return this._moveHorizontally(carSpec, cells, 'left');
+  left(carSpec, cells, muteEvent){
+    return this._moveHorizontally(carSpec, cells, 'left', muteEvent);
   }
   
   /**
    * Move a horizontal car right <code>cells</code> number of cells
    * @param {Car | Number} carSpec either a Car or a car id
    * @param {Number} cells the number of the cells the car should move to the right
+   * @param {boolean} muteEvent should the method fire a car move event in case of success?
    * @return {Car|undefined} the car if the move succeeds
    */
-  right(carSpec, cells){
-    return this._moveHorizontally(carSpec, cells, 'right');
+  right(carSpec, cells, muteEvent){
+    return this._moveHorizontally(carSpec, cells, 'right', muteEvent);
   }
 
   focusUp(){
@@ -89,15 +89,53 @@ class Garage {
     return this._focusMove.right();
   }
 
+  _collectValidMoveTargets(car, moveFns, targets){
+    const posX = car.posX, posY = car.posY;
+    moveFns.forEach(moveFn => {
+      let noCollision = true;
+      while(noCollision){
+        try {
+          moveFn(car, 1, true);
+          targets.push({x: car.posX, y: car.posY});
+
+        } catch (e){ // bumped into a car or the wall
+          noCollision = false;
+          car.posX = posX; car.posY = posY; // restoring previous position
+        }
+      }
+    });
+    return targets;
+  }
+
+  /**
+   * @param carSpec
+   * @return {Array} array of positions ({x,y} objects) where the car can move
+   */
+  getValidMoveTargets(carSpec){
+    const targets = [],
+    car = this.getCar(carSpec);
+    if(car){
+      targets.push({x: car.posX, y: car.posY}); // valid to stay where it currently is
+
+      if(car.orientation == 'vertical'){
+        this._collectValidMoveTargets(car, [this.up, this.down], targets);
+      } else { //horizontal
+        this._collectValidMoveTargets(car, [this.left, this.right], targets);
+      }
+    }
+    return targets;
+  }
+  
   /**
    * 
    * @param carSpec
    * @param cells
    * @param direction
+   * @param muteEvent
    * @return {Car|undefined}
    * @private
    */
-  _moveVertically(carSpec, cells, direction){
+  _moveVertically(carSpec, cells, direction, muteEvent){
     carSpec = carSpec ? carSpec : this.getFocusedCar();
     carSpec = Number.isInteger(carSpec) ? new Car(carSpec) : carSpec;
     cells = cells ? cells : 1;
@@ -120,15 +158,17 @@ class Garage {
       throw e;
     }
     this.checkGameOver();
-    Dispatcher.fire({
-      eventType: 'garage-state-change',
-      garageModel: this
-    });
+    if(!muteEvent){
+      Dispatcher.fire({
+        eventType: 'garage-state-change',
+        garageModel: this
+      });
+    }
 
     return car;
   }
 
-  _moveHorizontally(carSpec, cells, direction){
+  _moveHorizontally(carSpec, cells, direction, muteEvent){
     carSpec = carSpec ? carSpec : this.getFocusedCar();
     carSpec = Number.isInteger(carSpec) ? new Car(carSpec) : carSpec;
     cells = cells ? cells : 1;
@@ -151,10 +191,12 @@ class Garage {
       throw e;
     }
     this.checkGameOver();
-    Dispatcher.fire({
-      eventType: 'garage-state-change',
-      garageModel: this
-    });
+    if(!muteEvent){
+      Dispatcher.fire({
+        eventType: 'garage-state-change',
+        garageModel: this
+      });
+    }
     
     return car;
   }

@@ -114,6 +114,28 @@ describe('Garage test suite', () => {
     // g.park(new Car(3, 3, "vertical", 3, 0));
     // g.print();
   });
+
+  it('should report where cars can move', () => {
+    var g = new Garage(),
+      car1 = new Car(1, 2, "horizontal", 1, 1),
+      car2 = new Car(2, 3, "vertical", 1, 5);
+    expect(g.park(car1)).to.deep.equal(car1);
+    let cols = g.getValidMoveTargets(car1).map(pos =>{
+      return pos.y;
+    });
+    expect(cols).to.include.members([1, 2, 3, 4, 5]);
+    expect(cols.length).to.equal(5);
+
+    expect(g.park(car2)).to.deep.equal(car2);
+    cols = g.getValidMoveTargets(car1).map(pos =>{
+      return pos.y;
+    });
+    expect(cols).to.include.members([1, 2, 3, 4]);
+    expect(cols.length).to.equal(4);
+
+    g.park(new Car(3, 2, "horizontal", 1, 3));
+    expect(g.getValidMoveTargets(car1).length).to.equal(1);
+  });
 });
 
 describe('Driving up suite', () => {

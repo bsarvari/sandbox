@@ -4,8 +4,9 @@ import inGridStyles from './styles/inGameSelector.css';
 
 export default class Cell extends React.Component {
   render(){
-    let styles = this.props.inGrid ? inGridStyles : inBoardStyles;
+    let styles = this.props.inGrid ? inGridStyles : inBoardStyles; 
     const { x, y, exit} = this.props;
+
     var className = `${styles.cell} 
     ${styles['x'+x]} 
     ${styles['y'+y]} 
@@ -13,7 +14,7 @@ export default class Cell extends React.Component {
 
     var exitLabel = exit && this.props.interactive ? <div className={inBoardStyles.exitLabel}>Exit</div> : '';
     return (
-      <div className={className}>{exitLabel}</div>
+      <div className={className} >{exitLabel}</div>
     );
   }
 }

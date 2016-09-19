@@ -41,7 +41,7 @@ export default class HelpView extends React.Component {
         <h4>Navigation</h4>
         <ul>
           <li><strong>Select car</strong>: mouse click, arrow keys</li>
-          <li><strong>Move selected car</strong>: Shift + arrow keys</li>
+          <li><strong>Move selected car</strong>: Shift + arrow keys or drag and drop to new position</li>
         </ul>
       </Modal.Body>
       <Modal.Footer>
