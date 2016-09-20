@@ -27,7 +27,7 @@
   color: white;
 }
 
-.hoveredCar {
+.car:hover {
   background-color: #4A5BBF;
 }
 
@@ -42,7 +42,7 @@
   color: #616161;
 }
 
-.myCar.hoveredCar {
+.myCar:hover {
   background-color: #FFEE8F;
 }
 

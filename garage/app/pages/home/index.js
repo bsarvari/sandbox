@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import GarageView from '../../components/Garage/GarageView';
+import DndAwareGarageView from '../../components/Garage/DndAwareGarageView';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import GameSelector from '../../components/GameSelector';
@@ -110,7 +110,7 @@ export default class GarageApp extends React.Component { // TODO move it to comp
             <span className="badge" style={{float: 'right'}}>{this.state.gameId}</span>
           </div>
           <div className="panel-body" style={{position: 'relative'}}>
-            <GarageView interactive={true} garageModel={this.state.inBoardGarage}/>
+            <DndAwareGarageView garageModel={this.state.inBoardGarage}/>
           </div>
         </div>;
       
