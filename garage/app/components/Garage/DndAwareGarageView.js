@@ -35,14 +35,7 @@ class DndAwareGarageView extends React.Component {
       draggedCarSize: {width: e.width, height: e.height}
     });
   }
-
-  _onDragStarted(e){
-    this.setState({
-      draggedCarModel: e.carModel,
-      draggedCarSize: {width: e.width, height: e.height}
-    });
-  }
-
+  
   _onDragOver(e){
     const dropPreviewPos = this.state.dropPreviewPos,
       draggedCar = this.state.draggedCarModel,

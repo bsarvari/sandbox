@@ -34,10 +34,11 @@ class Garage {
    * @param {Car | Number} carSpec either a Car or a car id
    * @param {Number} cells the number of the cells the car should move up
    * @param {boolean} muteEvent should the method fire a car move event in case of success?
+   * @param skipGameOverCheck {boolean} if or not the garage should check if the game is over. Useful when this method is called for mock movements
    * @return {Car|undefined} the car if the move succeeds
    */
-  up(carSpec, cells, muteEvent){
-    this._moveVertically(carSpec, cells, 'up', muteEvent);
+  up(carSpec, cells, muteEvent, skipGameOverCheck){
+    this._moveVertically(carSpec, cells, 'up', muteEvent, skipGameOverCheck);
   }
 
   /**
@@ -45,10 +46,11 @@ class Garage {
    * @param {Car | Number} carSpec either a Car or a car id
    * @param {Number} cells the number of the cells the car should move down
    * @param {boolean} muteEvent should the method fire a car move event in case of success?
+   * @param skipGameOverCheck {boolean} if or not the garage should check if the game is over. Useful when this method is called for mock movements
    * @return {Car|undefined} the car if the move succeeds
    */
-  down(carSpec, cells, muteEvent){
-    return this._moveVertically(carSpec, cells, 'down', muteEvent);
+  down(carSpec, cells, muteEvent, skipGameOverCheck){
+    return this._moveVertically(carSpec, cells, 'down', muteEvent, skipGameOverCheck);
   }
   
   /**
@@ -56,10 +58,11 @@ class Garage {
    * @param {Car | Number} carSpec either a Car or a car id
    * @param {Number} cells the number of the cells the car should move to the left
    * @param {boolean} muteEvent should the method fire a car move event in case of success?
+   * @param skipGameOverCheck {boolean} if or not the garage should check if the game is over. Useful when this method is called for mock movements
    * @return {Car|undefined} the car if the move succeeds
    */
-  left(carSpec, cells, muteEvent){
-    return this._moveHorizontally(carSpec, cells, 'left', muteEvent);
+  left(carSpec, cells, muteEvent, skipGameOverCheck){
+    return this._moveHorizontally(carSpec, cells, 'left', muteEvent, skipGameOverCheck);
   }
   
   /**
@@ -67,10 +70,11 @@ class Garage {
    * @param {Car | Number} carSpec either a Car or a car id
    * @param {Number} cells the number of the cells the car should move to the right
    * @param {boolean} muteEvent should the method fire a car move event in case of success?
+   * @param skipGameOverCheck {boolean} if or not the garage should check if the game is over. Useful when this method is called for mock movements
    * @return {Car|undefined} the car if the move succeeds
    */
-  right(carSpec, cells, muteEvent){
-    return this._moveHorizontally(carSpec, cells, 'right', muteEvent);
+  right(carSpec, cells, muteEvent, skipGameOverCheck){
+    return this._moveHorizontally(carSpec, cells, 'right', muteEvent, skipGameOverCheck);
   }
 
   focusUp(){
@@ -95,7 +99,7 @@ class Garage {
       let noCollision = true;
       while(noCollision){
         try {
-          moveFn(car, 1, true);
+          moveFn(car, 1, true, true);
           targets.push({x: car.posX, y: car.posY});
 
         } catch (e){ // bumped into a car or the wall
@@ -127,15 +131,10 @@ class Garage {
   }
   
   /**
-   * 
-   * @param carSpec
-   * @param cells
-   * @param direction
-   * @param muteEvent
    * @return {Car|undefined}
    * @private
    */
-  _moveVertically(carSpec, cells, direction, muteEvent){
+  _moveVertically(carSpec, cells, direction, muteEvent, skipGameOverCheck){
     carSpec = carSpec ? carSpec : this.getFocusedCar();
     carSpec = Number.isInteger(carSpec) ? new Car(carSpec) : carSpec;
     cells = cells ? cells : 1;
@@ -157,7 +156,9 @@ class Garage {
       car.posX=x;
       throw e;
     }
-    this.checkGameOver();
+    if(!skipGameOverCheck){
+      this.checkGameOver();
+    }
     if(!muteEvent){
       Dispatcher.fire({
         eventType: 'garage-state-change',
@@ -168,7 +169,7 @@ class Garage {
     return car;
   }
 
-  _moveHorizontally(carSpec, cells, direction, muteEvent){
+  _moveHorizontally(carSpec, cells, direction, muteEvent, skipGameOverCheck){
     carSpec = carSpec ? carSpec : this.getFocusedCar();
     carSpec = Number.isInteger(carSpec) ? new Car(carSpec) : carSpec;
     cells = cells ? cells : 1;
@@ -190,7 +191,9 @@ class Garage {
       car.posY=y;
       throw e;
     }
-    this.checkGameOver();
+    if(!skipGameOverCheck){
+      this.checkGameOver();
+    }
     if(!muteEvent){
       Dispatcher.fire({
         eventType: 'garage-state-change',
