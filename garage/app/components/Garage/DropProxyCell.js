@@ -34,8 +34,8 @@ function collect(connect) {
 
 class DropProxyCell extends React.Component {
   render(){
-    const { x, y, connectDropTarget} = this.props,
-      className = `${styles.dropProxy} ${styles.cell} ${styles['x'+x]} ${styles['y'+y]}`;
+    const { x, y, connectDropTarget, orientation} = this.props,
+      className = `${styles.dropProxy} ${styles.cell} ${styles['x'+x]} ${styles['y'+y]} ${styles[orientation]}`;
 
     return connectDropTarget(
       <div className={className}></div>

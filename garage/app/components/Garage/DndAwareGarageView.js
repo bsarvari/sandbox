@@ -252,8 +252,9 @@ class DndAwareGarageView extends React.Component {
       }
       validTargets.forEach(pos => {
         const posX = isVertical? pos : draggedCarModel.posX,
-          posY = isVertical? draggedCarModel.posY: pos;
-        cells.push(<DropProxyCell x={posX} y={posY} key={`dpcell-${posX}${posY}`} />)
+          posY = isVertical? draggedCarModel.posY: pos,
+          orientation = isVertical ? 'horizontal' : 'vertical';
+        cells.push(<DropProxyCell x={posX} y={posY} key={`dpcell-${posX}${posY}`} orientation={orientation}/>)
       });
 
       return cells;

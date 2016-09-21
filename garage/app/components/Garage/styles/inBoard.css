@@ -6,9 +6,24 @@
 
 .dropProxy.cell {
   border: 0;
-  opacity: .3;
   z-index: 100;
-  background-color: white;
+  /* opacity and the white background-color help differentiate the eligible drop cells. Sacrificing them for the sticky drop preview. */
+  /*opacity: .3;*/
+  /*background-color: white;*/
+}
+
+/* Stripe shaped drop zone for sticky drop preview */
+.dropProxy.cell.vertical {
+  top: 0;
+  bottom: 0;
+  height: auto;
+}
+
+/* Stripe shaped drop zone for sticky drop preview */
+.dropProxy.cell.horizontal {
+  left: 0;
+  right: 0;
+  width: auto;
 }
 
 .dropPreview.car {
