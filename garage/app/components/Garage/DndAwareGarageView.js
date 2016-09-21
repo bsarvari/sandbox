@@ -211,13 +211,17 @@ class DndAwareGarageView extends React.Component {
   }
 
   _renderDropPreview(){
-    const pos = this.state.dropPreviewPos,
-      draggedCar = this.state.draggedCarModel;
+    const draggedCar = this.state.draggedCarModel;
+    if(draggedCar){
+      const pos = this.state.dropPreviewPos ?
+        this.state.dropPreviewPos :
+      {x: draggedCar.posX, y: draggedCar.posY};
 
-    if(pos){
-      return (
-        pos ? <DropPreviewCar x={pos.x} y={pos.y} orientation={draggedCar.orientation} size={draggedCar.size} /> : null
-      );
+      if(pos){
+        return (
+          pos ? <DropPreviewCar x={pos.x} y={pos.y} orientation={draggedCar.orientation} size={draggedCar.size} /> : null
+        );
+      }
     }
   }
 
