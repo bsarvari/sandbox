@@ -10,6 +10,7 @@ import Footer from '../../components/Footer';
 import GameSelector from '../../components/GameSelector';
 import Dialog from '../../components/Dialog';
 import Dispatcher from '../../events/Dispatcher';
+import Utils from '../../components/Utils';
 import {Alert, Glyphicon} from 'react-bootstrap';
 
 export default class GarageApp extends React.Component { // TODO move it to components
@@ -18,7 +19,7 @@ export default class GarageApp extends React.Component { // TODO move it to comp
     this.state = {
       showGameSelector: true,
       showGameWillEndWarning: false,
-      solvedGameIds: new Set()
+      solvedGameIds: this._getSolvedGameIds()
     };
 
     this.onGarageSelected = this.onGarageSelected.bind(this);
@@ -27,6 +28,16 @@ export default class GarageApp extends React.Component { // TODO move it to comp
     this.onStartNewGameCancel = this.onStartNewGameCancel.bind(this);
     this._onGameOver = this._onGameOver.bind(this);
     Dispatcher.addListener('game-over', this._onGameOver);
+  }
+  
+  _getSolvedGameIds(){
+    let prefs = Utils.getStore();
+    let solvedGameIds = prefs.get('solvedGameIds');
+    if(solvedGameIds){
+      return new Set(solvedGameIds);
+    } else {
+      return new Set();
+    }
   }
 
   _onGameOver(e){
@@ -37,6 +48,7 @@ export default class GarageApp extends React.Component { // TODO move it to comp
       this.setState({
         solvedGameIds: gameIds
       });
+      Utils.getStore().set('solvedGameIds', Array.from(gameIds)); // saving state
     }
   }
   

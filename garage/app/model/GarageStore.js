@@ -37,7 +37,7 @@ const garages = [new Garage([
     new Car(5, 2, 'horizontal', 3, 3),
     new Car(6, 2, 'horizontal', 4, 5),
     new Car(7, 2, 'horizontal', 5, 1),
-
+    
     new Car(8, 3, 'vertical', 0, 0),
     new Car(9, 2, 'vertical', 1, 3),
     new Car(10, 2, 'vertical', 2, 5),

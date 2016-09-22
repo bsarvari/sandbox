@@ -327,9 +327,9 @@
 .solvedGame {
   background: #4CAF50;
   opacity: .9;
-  font-size: 1.2em;
+  font-size: 1em;
   padding: .5em;
-  margin: 3px;
+  margin: 5px;
   position: absolute;
   right: 0;
   top: auto;
