@@ -11,13 +11,13 @@ import Utils from '../Utils';
 import styles from './GameSelector.css';
 
 export default class GameSelector extends React.Component {
-
+  
   componentDidMount(){
     Utils.scrollToTop();
   }
 
   render () {
-    let i=0;
+    let solvedGameIds = this.props.solvedGameIds;
     return (
     <div className="panel panel-info"> {/*Not using the bs-react Panel class because I can't add the close button to the header */}
       <div className="panel-heading">Select a Game to Begin
@@ -34,8 +34,8 @@ export default class GameSelector extends React.Component {
           {
             GarageStore.getGarages().map((model) => {
             return (
-              <div className={`${styles.celledGarage} col-lg-3 col-md-4 col-sm-6`} key={i}>
-                <GarageView interactive={false} inGrid={true} gameId={++i} garageModel={model.clone()}  />
+              <div className={`${styles.celledGarage} col-lg-3 col-md-4 col-sm-6`} key={model.gameId}>
+                <GarageView garageModel={model.clone()} solved={solvedGameIds.has(model.gameId)}/>
               </div>
             )})
           }

@@ -1,6 +1,5 @@
 import React from 'react';
 import Car from './Car';
-import Cell from './Cell';
 import Dispatcher from '../../events/Dispatcher';
 import styles from './styles/inGameSelector.css';
 import garageMixin from './garageMixin';
@@ -25,7 +24,7 @@ class GarageView extends React.Component {
     Dispatcher.fire({
       eventType: 'garage-selected',
       garageModel: this.props.garageModel,
-      gameId: this.props.gameId,
+      gameId: this.props.garageModel.gameId,
       source: this
     });
   }
@@ -39,13 +38,14 @@ class GarageView extends React.Component {
   }
 
   render(){
-    const {gameId} = this.props,
+    const {gameId} = this.props.garageModel,
       cells = this._renderCells(false),
       cars = this.renderCars();
 
     var overlay =
       <div className={styles.overlay} onClick={this.onOverlayClick}>
         <span className={`badge ${styles.gameId}`}>{gameId}</span>
+        {this.props.solved && <span title="Solved" className={`glyphicon glyphicon-ok badge ${styles.solvedGame}`}> </span>}
       </div>;
       return (
         <div className={styles.garageWrap} >

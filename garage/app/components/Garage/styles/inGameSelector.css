@@ -324,6 +324,18 @@
   }
 }
 
+.solvedGame {
+  background: #4CAF50;
+  opacity: .9;
+  font-size: 1.2em;
+  padding: .5em;
+  margin: 3px;
+  position: absolute;
+  right: 0;
+  top: auto;
+  bottom: 0;
+  height: 2em;
+}
 /*
 @media (min-width: 1200px) {
   .overlay, .root {

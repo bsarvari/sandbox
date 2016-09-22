@@ -26,7 +26,6 @@ class DndAwareGarageView extends React.Component {
     this.listenToDragEvents();
     this.styles = styles;
     Object.assign(this, garageMixin);
-
   }
 
   _onDragStarted(e){

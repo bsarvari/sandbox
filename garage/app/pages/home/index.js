@@ -17,15 +17,29 @@ export default class GarageApp extends React.Component { // TODO move it to comp
     super();
     this.state = {
       showGameSelector: true,
-      showGameWillEndWarning: false
+      showGameWillEndWarning: false,
+      solvedGameIds: new Set()
     };
 
     this.onGarageSelected = this.onGarageSelected.bind(this);
     this.onModelStateChange = this.onModelStateChange.bind(this);
     this.onStartNewGameApprove = this.onStartNewGameApprove.bind(this);
     this.onStartNewGameCancel = this.onStartNewGameCancel.bind(this);
+    this._onGameOver = this._onGameOver.bind(this);
+    Dispatcher.addListener('game-over', this._onGameOver);
   }
 
+  _onGameOver(e){
+    let gameId = e.garageModel.gameId,
+      gameIds = this.state.solvedGameIds;
+    if(!gameIds.has(gameId)){
+      gameIds.add(gameId);
+      this.setState({
+        solvedGameIds: gameIds
+      });
+    }
+  }
+  
   onStartNewGameCancel() {
     this.setState({
       selectedGarage: null,
@@ -99,11 +113,9 @@ export default class GarageApp extends React.Component { // TODO move it to comp
       showBackToGame = this.state.showGameSelector && this.state.inBoardGarage;
 
     if(this.state.showGameSelector){
-      content = <GameSelector/>;
+      content = <GameSelector solvedGameIds={this.state.solvedGameIds}/>;
       
     } else if(this.state.inBoardGarage){
-      // console.log('app.state.inBoardGarage', this.state.inBoardGarage.print());
-
       content =
         <div className="panel panel-info">
           <div className="panel-heading">Unblock the yellow car and move it to the exit

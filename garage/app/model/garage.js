@@ -6,10 +6,7 @@ import FocusMoveManager from './FocusMoveManager';
 import Dispatcher from '../events/Dispatcher';
 
 class Garage {
-  /**
-   * @param cars
-   */
-  constructor(cars) {
+  constructor(cars, gameId) {
     this._focusMove = new FocusMoveManager(this);
     this.cars = [];
     if(cars) {
@@ -19,6 +16,7 @@ class Garage {
     this.down = this.down.bind(this);
     this.left = this.left.bind(this);
     this.right = this.right.bind(this);
+    this.gameId=gameId;
   }
   
   clone(){
@@ -26,7 +24,9 @@ class Garage {
     this.cars.forEach((car)=>{
       clonedCars.push(car.clone());
     });
-    return new Garage(clonedCars);
+    let clone = new Garage(clonedCars);
+    clone.gameId = this.gameId;
+    return clone;
   }
 
   /**
@@ -205,9 +205,15 @@ class Garage {
   }
   
   checkGameOver(){
-    var myCar = this.myCar;
-    if(myCar && myCar.posX == 0 && myCar.posY == 2){
-      this.gameOver = true;
+    if(!this.gameOver){
+      var myCar = this.myCar;
+      if(myCar && myCar.posX == 0 && myCar.posY == 2){
+        this.gameOver = true;
+        Dispatcher.fire({
+          eventType: 'game-over',
+          garageModel: this
+        });
+      }
     }
   }
 
