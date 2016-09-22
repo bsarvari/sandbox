@@ -6,5 +6,8 @@ A Garage implementation that uses the React Static Boilerplate project as a foun
  
 See https://github.com/kriasoft/react-static-boilerplate
 
+The car logo comes from here: https://www.iconfinder.com/icons/352315/car_directions_icon#size=32
+Thank you, iconfinder.
+
 ---
 Made with ♥ by Balazs Sarvari

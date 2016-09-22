@@ -11,7 +11,13 @@
 
 .brand {
   color: #3F51B5 !important; /*A hack */
-  font-weight: bold
+  font-weight: bold;
+  margin-left: 0;
+}
+
+.logo {
+  background: url("./logo-blue.svg") no-repeat;
+  padding: 8px 19px 9px;
 }
 
 .navbar-default .navbar-brand {

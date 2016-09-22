@@ -30,7 +30,7 @@ export default class Header extends React.Component {
         this.setState({navBarExpanded: !this.state.navBarExpanded});
       }}>
         <Navbar.Header>
-          <Navbar.Brand className={`${s.brand}`}>Garage</Navbar.Brand>
+          <Navbar.Brand className={`${s.brand}`}><span className={`${s.logo}`}></span>Garage</Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
