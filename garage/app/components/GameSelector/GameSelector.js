@@ -30,11 +30,12 @@ export default class GameSelector extends React.Component {
         }}><span aria-hidden="true">×</span></button>
       </div>
       <div className="panel-body">
-        <div className={`row ${styles.rowOfGarages}`} >
+        <div className="row" >
           {
             GarageStore.getGarages().map((model) => {
             return (
-              <div className={`${styles.celledGarage} col-lg-3 col-md-4 col-sm-6`} key={model.gameId}>
+              /*The transition style will make the grid animated at the bootstrap media query breakpoints. Cool and easy. */
+              <div className={`${styles.celledGarage} col-lg-3 col-md-4 col-sm-6`} key={model.gameId} style={{'transition': '0.4s'}}>
                 <GarageView garageModel={model.clone()} solved={solvedGameIds.has(model.gameId)}/>
               </div>
             )})

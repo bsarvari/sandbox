@@ -7,6 +7,7 @@
   z-index: 100;
   cursor: pointer;
 }
+
 .overlay:hover {
   background-color: rgba(255, 255, 255, 0);
   -webkit-box-shadow: 0px 0px 7px 2px #38C2ED;
@@ -20,6 +21,121 @@
   margin: 6px;
 }
 
+.overlay, .root {
+  width: 240px;
+  height: 240px;
+  border-radius: 7px;
+  margin: 0 auto;
+}
+
+.cell {
+  height: 40px;
+  width: 40px;
+}
+
+.carId{
+  font-size: .9em;
+}
+
+.x1 {
+  top: 40px;
+}
+.x2 {
+  top: 80px;
+}
+.x3 {
+  top: 120px;
+}
+.x4 {
+  top: 160px;
+}
+.x5 {
+  top: 200px;
+}
+
+.y1 {
+  left: 40px;
+}
+.y2 {
+  left: 80px;
+}
+.y3 {
+  left: 120px;
+}
+.y4 {
+  left: 160px;
+}
+.y5 {
+  left: 200px;
+}
+
+.car {
+  margin: 4px;
+  border-radius: 6px;
+}
+
+.car.vertical {
+  width: 32px;
+}
+
+.car.vertical.c3 {
+  height: 111px;
+}
+
+.car.vertical.c2 {
+  height: 72px;
+}
+
+.car.vertical .carId { /*TODO tweak it*/
+  left: 0;
+  right: 0;
+  text-align: center;
+  top: 10px;
+}
+
+.car.horizontal {
+  height: 32px;
+  margin-left: 4px;
+}
+
+.car.horizontal.c3 {
+  width: 111px;
+}
+
+.car.horizontal.c2 {
+  width: 72px;
+}
+
+.car.horizontal .carId { /*TODO tweak it*/
+  top: 0;
+  bottom: 0;
+  right: 15px;
+  position: absolute;
+  line-height: 35px;
+}
+
+.car.focused {
+  -webkit-box-shadow: 0px 0px 5px 3px #fff;
+  -moz-box-shadow: 0px 0px 5px 3px #fff;
+  box-shadow: 0px 0px 5px 3px #fff;
+}
+
+.solvedGame {
+  background: #4CAF50;
+  opacity: .9;
+  font-size: 1em;
+  padding: .5em;
+  margin: 5px;
+  position: absolute;
+  right: 0;
+  top: auto;
+  bottom: 0;
+  height: 2em;
+}
+
+/* The following media queries aren't used now but because they contain a few
+different sizes for garages that may be used in the future I leave them here. */
+/*
 @media (min-width: 1200px) {
   .overlay, .root {
     width: 240px;
@@ -85,7 +201,7 @@
     height: 72px;
   }
 
-  .car.vertical .carId { /*TODO tweak it*/
+  .car.vertical .carId { !*TODO tweak it*!
     left: 0;
     right: 0;
     text-align: center;
@@ -105,7 +221,7 @@
     width: 72px;
   }
 
-  .car.horizontal .carId { /*TODO tweak it*/
+  .car.horizontal .carId { !*TODO tweak it*!
     top: 0;
     bottom: 0;
     right: 15px;
@@ -220,13 +336,13 @@
   }
 }
 
-@media /*(min-width: 768px) and */(max-width: 991px){
+@media !*(min-width: 768px) and *!(max-width: 991px){
   .overlay, .root {
     width: 330px;
     height: 330px;
     border-radius: 8px;
 
-    /* Centering games when displayed in a single column */
+    !* Centering games when displayed in a single column *!
     left: 50%;
     margin-left: -165px;
   }
@@ -324,19 +440,6 @@
   }
 }
 
-.solvedGame {
-  background: #4CAF50;
-  opacity: .9;
-  font-size: 1em;
-  padding: .5em;
-  margin: 5px;
-  position: absolute;
-  right: 0;
-  top: auto;
-  bottom: 0;
-  height: 2em;
-}
-/*
 @media (min-width: 1200px) {
   .overlay, .root {
     width: 228px;
